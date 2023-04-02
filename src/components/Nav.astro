@@ -4,8 +4,6 @@ import { getAuthToken } from "../utils/getAuthToken";
 const token = getAuthToken(Astro.cookies);
 const isAuthenticated = !!token;
 
-console.log(token);
-
 const baseApiUrl = import.meta.env.PUBLIC_BASE_API_URL;
 const loginUrl = `${baseApiUrl}/auth/github`;
 ---
@@ -24,7 +22,7 @@ const loginUrl = `${baseApiUrl}/auth/github`;
 
       if (data.status === 200) {
         Cookies.remove("token");
-        window.location.reload();
+        window.location.replace("/");
       }
 
       // TODO: handle error
