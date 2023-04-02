@@ -1,6 +1,6 @@
 ---
-import { get } from "../utils/api";
-import { getAuthToken } from "../utils/getAuthToken";
+import { get } from "utils/api";
+import { getAuthToken } from "utils/getAuthToken";
 
 interface Subscription {
   id: number;
@@ -34,7 +34,7 @@ try {
 <script>
   import Cookies from "js-cookie";
 
-  import { deleteRequest } from "../utils/api";
+  import { deleteRequest } from "utils/api";
 
   interface UnsubscribeData {
     status: number;
