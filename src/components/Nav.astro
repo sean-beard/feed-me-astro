@@ -1,0 +1,96 @@
+---
+import { getAuthToken } from "../utils/getAuthToken";
+
+const token = getAuthToken(Astro.cookies);
+const isAuthenticated = !!token;
+
+console.log(token);
+
+const baseApiUrl = import.meta.env.PUBLIC_BASE_API_URL;
+const loginUrl = `${baseApiUrl}/auth/github`;
+---
+
+<script>
+  import Cookies from "js-cookie";
+
+  const logoutButton = document.getElementById("logoutButton");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+      const response = await fetch(
+        `${import.meta.env.PUBLIC_BASE_API_URL}/auth/logout`
+      );
+      const data = await response.json();
+
+      if (data.status === 200) {
+        Cookies.remove("token");
+        window.location.reload();
+      }
+
+      // TODO: handle error
+    });
+  }
+</script>
+
+<nav>
+  <h1>
+    <a href="/">FeedMe</a>
+  </h1>
+
+  {
+    isAuthenticated && (
+      <div>
+        <ul>
+          <li>
+            <a href="/manage">Manage Feeds</a>
+          </li>
+        </ul>
+
+        <button id="logoutButton" class="btn">
+          Logout
+        </button>
+      </div>
+    )
+  }
+
+  {!isAuthenticated && <a href={loginUrl}>Login with Github</a>}
+</nav>
+
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Pacifico");
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  ul {
+    display: inline;
+  }
+
+  h1 {
+    font-family: Pacifico, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 2rem;
+    margin: auto 1rem;
+  }
+
+  .btn {
+    background-color: #1565c0;
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: white;
+    color: #1565c0;
+  }
+
+  /* Mobile */
+  @media (max-width: 37.5em) {
+    nav {
+      display: none;
+    }
+  }
+</style>
