@@ -1,0 +1,114 @@
+---
+import { post } from "../utils/api";
+import { getAuthToken } from "../utils/getAuthToken";
+
+interface SubscribeData {
+  status: number;
+  message: string;
+}
+
+let url = "";
+let status = 0;
+let message = "";
+
+if (
+  Astro.request.method === "POST" &&
+  Astro.cookies.get("clientInitiated").value === "true"
+) {
+  try {
+    const formData = await Astro.request.formData();
+    url = formData.get("url")?.toString() ?? "";
+
+    if (!url?.trim()) {
+      return;
+    }
+
+    const data = await post<SubscribeData>({
+      path: "/subscription",
+      token: getAuthToken(Astro.cookies) ?? "",
+      body: { url },
+    });
+
+    status = data.status;
+    message = data.message;
+  } catch (error) {
+    if (error instanceof Error) {
+      status = 500;
+      message = error.message;
+    }
+  }
+}
+---
+
+<script>
+  import Cookies from "js-cookie";
+
+  if (Cookies.get("clientInitiated") === "true") {
+    Cookies.set("clientInitiated", "false");
+  }
+
+  const form = document.getElementById("subscribe-form");
+
+  if (form) {
+    form.addEventListener("submit", () => {
+      Cookies.set("clientInitiated", "true");
+    });
+  }
+</script>
+
+<div>
+  <h2>Subscribe to a feed</h2>
+
+  {status === 200 && <h3 class="success">{message}</h3>}
+  {status === 500 && <h3 class="error">{message}</h3>}
+  {
+    status === 415 && (
+      <div>
+        <h3 class="error">Unsupported RSS feed format.</h3>
+
+        <p>
+          Please
+          <a
+            href={`https://github.com/sean-beard/feed-me/issues/new?title=Unsupported%20RSS%20Format&body=URL:%20${url.trim()}`}
+            target="_blank"
+            rel="noopener"
+          >
+            open an issue and include the URL
+          </a>
+          you've attempted to subscribe to so we can support it going forward.
+        </p>
+      </div>
+    )
+  }
+
+  <form id="subscribe-form" method="POST">
+    <div class="input-field">
+      <input id="url" class="validate" type="text" name="url" required />
+      <label for="url">Enter the RSS feed URL</label>
+    </div>
+
+    <button class="btn" type="submit">Subscribe</button>
+  </form>
+</div>
+
+<style>
+  .input-field {
+    margin: 1rem auto;
+    max-width: 400px;
+    width: 80%;
+  }
+
+  .error,
+  .success {
+    font-size: 1.5em;
+    margin-bottom: 2rem;
+  }
+
+  .error {
+    color: maroon;
+  }
+
+  .success {
+    color: darkgreen;
+  }
+</style>
