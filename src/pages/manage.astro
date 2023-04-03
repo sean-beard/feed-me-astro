@@ -1,13 +1,20 @@
 ---
 import Subscriptions from "components/Subscriptions.astro";
-import SubscriptionForm from "components/SubscriptionForm.astro";
+import { SubscriptionForm } from "components/SubscriptionForm";
 import Layout from "layouts/Layout.astro";
+import { getAuthToken } from "utils/getAuthToken";
+
+const token = getAuthToken(Astro.cookies);
 ---
 
 <Layout title="Manage Feed">
-  <section>
-    <SubscriptionForm />
-  </section>
+  {
+    token && (
+      <section>
+        <SubscriptionForm token={token} client:visible />
+      </section>
+    )
+  }
   <section>
     <Subscriptions />
   </section>
