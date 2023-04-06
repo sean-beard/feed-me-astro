@@ -16,7 +16,6 @@ let status = 0;
 let subscriptions: Subscription[] = [];
 
 try {
-  // TODO refactor getAuthToken
   const data = await get<SubscriptionsData>({
     path: "/subscription",
     token: getAuthToken(Astro.cookies) ?? "",
@@ -146,7 +145,6 @@ try {
   .btn:focus,
   .btn:hover {
     background-color: white;
-    color: maroon;
   }
 
   .error {

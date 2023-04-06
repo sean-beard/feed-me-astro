@@ -1,0 +1,62 @@
+---
+import { get } from "utils/api";
+import { getAuthToken } from "utils/getAuthToken";
+import type { Feed, GetFeedResponse } from "utils/types";
+import { NewsFeed } from "./NewsFeed";
+
+const ERROR_MESSAGE =
+  "Oops! There was an error loading your feed. Please try again later.";
+
+let feed: Feed | undefined;
+let feedLoading = true;
+let feedError = "";
+
+try {
+  const data = await get<GetFeedResponse>({
+    path: "/feed",
+    token: getAuthToken(Astro.cookies) ?? "",
+  });
+
+  feedLoading = false;
+
+  if (data.status !== 200) {
+    feedError = ERROR_MESSAGE;
+  }
+
+  feed = data.feed;
+} catch {
+  feedError = ERROR_MESSAGE;
+}
+
+const shouldRenderFeed =
+  !!feed?.length && feed.length > 0 && !feedLoading && !feedError;
+const userHasNoSubscriptions = !feed?.length && !feedLoading && !feedError;
+---
+
+<div>
+  <section>
+    {feedError && <h2>{feedError}</h2>}
+
+    {
+      shouldRenderFeed && (
+        <NewsFeed initialFeed={feed} initialFeedError={feedError} client:load />
+      )
+    }
+
+    {
+      userHasNoSubscriptions && (
+        <h2>
+          Nothing to see here... Head over to
+          <a href="/manage">Manage Feeds</a>
+          to subscribe to your first feed!
+        </h2>
+      )
+    }
+  </section>
+</div>
+
+<style>
+  * {
+    text-align: center;
+  }
+</style>
