@@ -39,7 +39,11 @@ export const ToggleItemStatusButton = ({ feedItem }: Props) => {
   };
 
   return (
-    <button className="btn" disabled={isLoading} onClick={toggleStatus}>
+    <button
+      className="btn toggle-btn"
+      disabled={isLoading}
+      onClick={toggleStatus}
+    >
       {isRead ? "Mark as unread" : "Mark as read"}
     </button>
   );
