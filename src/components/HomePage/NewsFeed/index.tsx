@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import type { FeedControls, FeedFilters, FetchFeed } from "utils/hooks/useFeed";
 import type { Feed } from "utils/types";
 import { FeedItem } from "./FeedItem";
@@ -24,10 +23,7 @@ export const NewsFeed = ({
   controls,
   fetchFeed,
 }: Props) => {
-  const hasNoUnreadItems = useMemo(
-    () => !!filteredFeed && !filteredFeed.length,
-    [filteredFeed]
-  );
+  const hasNoUnreadItems = !!filteredFeed && !filteredFeed.length;
 
   if (feedError) {
     return <h2>{feedError}</h2>;
