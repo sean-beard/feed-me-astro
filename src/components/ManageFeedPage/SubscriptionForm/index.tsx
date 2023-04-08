@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { post } from "utils/api";
 
-import "./SubscriptionForm.css";
+import "./styles.css";
 
 interface SubscribeData {
   status: number;
