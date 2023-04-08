@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { post } from "utils/api";
 
 import "./SubscriptionForm.css";

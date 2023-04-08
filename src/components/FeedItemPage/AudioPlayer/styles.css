@@ -1,0 +1,37 @@
+i {
+  font-size: 2.5em;
+}
+
+audio {
+  border: 3px solid darkgray;
+  background-color: darkgray;
+  margin-bottom: 3rem;
+  width: 75%;
+  max-width: 1280px;
+}
+
+audio:focus {
+  border: 3px solid #1a237e;
+}
+
+figure {
+  margin: 0;
+}
+
+.btn {
+  margin: 2rem 0 4rem 0;
+  min-width: 100px;
+}
+
+.btn + .btn {
+  margin-left: 0.5rem;
+}
+
+/* Tablet */
+@media (max-width: 48em) {
+  audio {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+  }
+}
