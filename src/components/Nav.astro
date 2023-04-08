@@ -25,14 +25,14 @@ const loginUrl = `${baseApiUrl}/auth/github`;
 
   {
     isAuthenticated && (
-      <div>
+      <div class="auth-nav">
         <ul>
           <li>
             <a href="/manage">Manage Feeds</a>
           </li>
         </ul>
 
-        <button id="logoutButton" class="btn">
+        <button id="logoutButton" class="btn logout-btn">
           Logout
         </button>
       </div>
@@ -65,13 +65,18 @@ const loginUrl = `${baseApiUrl}/auth/github`;
     text-align: left;
   }
 
-  .btn {
+  .auth-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .logout-btn {
     background-color: #1565c0;
     margin: 0;
   }
 
-  .btn:hover,
-  .btn:focus {
+  .logout-btn:hover,
+  .logout-btn:focus {
     background-color: white;
     color: #1565c0;
   }
