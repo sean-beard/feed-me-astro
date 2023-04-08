@@ -1,11 +1,11 @@
 import type { FeedItem } from "utils/types";
-import type { useFeed } from "utils/hooks/useFeed";
+import type { FeedControls, FetchFeed, FeedFilters } from "utils/hooks/useFeed";
 
 interface Props {
   feed: FeedItem[];
-  controls: ReturnType<typeof useFeed>["controls"];
-  filters: ReturnType<typeof useFeed>["filters"];
-  fetchFeed: ReturnType<typeof useFeed>["fetchFeed"];
+  controls: FeedControls;
+  filters: FeedFilters;
+  fetchFeed: FetchFeed;
   token: string;
 }
 

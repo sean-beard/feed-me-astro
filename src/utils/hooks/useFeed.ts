@@ -3,6 +3,10 @@ import { useControls } from "./useControls";
 import { useFilters } from "./useFilters";
 import type { Feed } from "utils/types";
 
+export type FeedControls = ReturnType<typeof useFeed>["controls"];
+export type FeedFilters = ReturnType<typeof useFeed>["filters"];
+export type FetchFeed = ReturnType<typeof useFeed>["fetchFeed"];
+
 interface Props {
   initialFeed: Feed;
 }
