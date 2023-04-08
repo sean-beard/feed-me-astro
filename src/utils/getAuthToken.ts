@@ -8,8 +8,8 @@ export const getUser = (cookies: AstroCookies) => {
 
   try {
     user = jwt.verify(userJwt, import.meta.env.SECRET_JWT_KEY) as User;
-  } catch (err) {
-    console.error(err);
+  } catch {
+    console.log("User not found in JWT");
   }
 
   return user;
