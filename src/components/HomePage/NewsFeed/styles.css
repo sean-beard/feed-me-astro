@@ -54,9 +54,15 @@
   justify-content: center;
   align-items: center;
   margin: 1rem auto;
-  width: 80%;
+  width: 85%;
   max-width: 750px;
   min-height: 4.5rem;
+}
+
+.fade-out {
+  transition: all 0.25s;
+  transform: translateY(-16px);
+  opacity: 0;
 }
 
 .card-link {
@@ -160,6 +166,7 @@
 
   .controls,
   .feed-row {
+    width: 90%;
     min-height: 6rem;
   }
 
@@ -181,5 +188,10 @@
   .btn.mobile-unfiltered:hover {
     background-color: white;
     color: #1a237e;
+  }
+
+  .toggles,
+  .filter-form .input-field {
+    width: 95%;
   }
 }

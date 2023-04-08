@@ -34,6 +34,14 @@ export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
         return;
       }
 
+      if (status === "read" && filters.shouldFilterUnread) {
+        payload.forEach((item) => {
+          const element = document.getElementById(item.id.toString());
+
+          element?.classList?.add("fade-out");
+        });
+      }
+
       await fetchFeed();
     } catch {
       // TODO: handle error
