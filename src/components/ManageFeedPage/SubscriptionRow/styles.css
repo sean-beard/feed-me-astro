@@ -1,12 +1,14 @@
 .row p {
   font-size: 1.25em;
+  margin: 0;
 }
 
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem auto;
+  margin: 0 auto;
+  padding: 1rem 0;
   max-width: 400px;
   width: 100%;
 }
@@ -24,6 +26,7 @@
 .row .btn {
   background-color: maroon;
   text-transform: none;
+  margin: 0;
 }
 
 .row .btn:focus,
@@ -34,6 +37,6 @@
 /* Mobile */
 @media (max-width: 37.5em) {
   .row {
-    padding: 0 2rem;
+    padding: 1rem 2rem;
   }
 }
