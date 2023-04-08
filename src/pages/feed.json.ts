@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import type { GetFeedResponse } from "utils/types";
 import { get as getRequest } from "utils/api";
+import { MAX_NUM_FEED_ITEMS } from "utils/consts";
 import { getAuthToken } from "utils/getAuthToken";
 
 export const get: APIRoute = async ({ request, cookies }) => {
@@ -31,7 +32,7 @@ export const get: APIRoute = async ({ request, cookies }) => {
     }
 
     return {
-      body: JSON.stringify(data.feed),
+      body: JSON.stringify(data.feed.slice(0, MAX_NUM_FEED_ITEMS)),
     };
   } catch {
     return new Response(null, {
