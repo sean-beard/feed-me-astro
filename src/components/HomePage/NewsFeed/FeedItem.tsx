@@ -10,7 +10,7 @@ interface FeedItemProps {
 
 export const FeedItem = ({ feedItem, isChecked, onChange }: FeedItemProps) => {
   return (
-    <div className="feed-row">
+    <div id={feedItem.id.toString()} className="feed-row">
       <label>
         <input
           type="checkbox"

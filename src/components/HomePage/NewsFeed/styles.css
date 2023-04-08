@@ -59,6 +59,12 @@
   min-height: 4.5rem;
 }
 
+.fade-out {
+  transition: all 0.25s;
+  transform: translateY(-16px);
+  opacity: 0;
+}
+
 .card-link {
   width: 100%;
 }
