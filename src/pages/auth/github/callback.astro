@@ -15,8 +15,6 @@ const search = url.substring(url.indexOf("?"));
 const urlParams = new URLSearchParams(search);
 const code = urlParams.get("code");
 
-let token: string | undefined;
-
 if (code) {
   const baseApiUrl = import.meta.env.PUBLIC_BASE_API_URL;
   const url = `${baseApiUrl}/auth/github/callback?code=${code}`;
@@ -25,8 +23,7 @@ if (code) {
   const data: AuthCallbackData = await response.json();
 
   if (data.status === 200) {
-    token = data.user.token;
-    Astro.cookies.set("token", data.user.token, { path: "/" });
+    Astro.cookies.set("user", data.user, { path: "/" });
   }
 
   // TODO: handle error

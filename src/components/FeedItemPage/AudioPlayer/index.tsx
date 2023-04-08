@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import type { FeedItem } from "utils/types";
+import { getClientAuthToken } from "utils/getClientAuthToken";
 
 import "./styles.css";
-import Cookies from "js-cookie";
 
 interface Props {
   feedItem: FeedItem & { mediaUrl: string };
@@ -58,7 +58,7 @@ export const AudioPlayer = ({ feedItem }: Props) => {
 
     if (!audioElement) return;
 
-    const token = Cookies.get("token");
+    const token = getClientAuthToken();
 
     if (!token) {
       return;

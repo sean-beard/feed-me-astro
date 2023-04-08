@@ -1,5 +1,6 @@
 ---
 import GlobalStyles from "components/GlobalStyles.astro";
+import { MobileNav } from "components/MobileNav";
 import Nav from "components/Nav.astro";
 
 interface Props {
@@ -29,13 +30,11 @@ const { title } = Astro.props;
   <body>
     <GlobalStyles />
     <Nav />
+    <MobileNav client:only="react" />
+
     <main>
       <slot />
     </main>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-    ></script>
   </body>
 </html>
 <style is:global>
@@ -49,7 +48,8 @@ const { title } = Astro.props;
     );
   }
   html {
-    font-family: system-ui, sans-serif;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
     background-color: #f6f6f6;
   }
   code {

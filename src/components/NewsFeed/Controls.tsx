@@ -1,6 +1,6 @@
-import Cookies from "js-cookie";
 import type { FeedItem } from "utils/types";
 import type { useFeed } from "utils/hooks/useFeed";
+import { getClientAuthToken } from "utils/getClientAuthToken";
 
 interface Props {
   feed: FeedItem[];
@@ -23,7 +23,7 @@ export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
 
     controls.setIsUpdatingItem(true);
 
-    const token = Cookies.get("token");
+    const token = getClientAuthToken();
 
     if (!token) {
       return;

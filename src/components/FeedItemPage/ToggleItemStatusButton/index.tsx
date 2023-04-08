@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Cookies from "js-cookie";
 import type { FeedItem } from "utils/types";
+import { getClientAuthToken } from "utils/getClientAuthToken";
 
 import "./styles.css";
 
@@ -13,7 +13,7 @@ export const ToggleItemStatusButton = ({ feedItem }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const toggleStatus = async () => {
-    const token = Cookies.get("token");
+    const token = getClientAuthToken();
 
     if (!token) {
       return;

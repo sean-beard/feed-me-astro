@@ -31,9 +31,8 @@ try {
 ---
 
 <script>
-  import Cookies from "js-cookie";
-
   import { deleteRequest } from "utils/api";
+  import { getClientAuthToken } from "utils/getClientAuthToken";
 
   interface UnsubscribeData {
     status: number;
@@ -44,7 +43,7 @@ try {
   }
 
   const unsubscribeButton = document.getElementById("unsubscribeButton");
-  const token = Cookies.get("token") ?? "";
+  const token = getClientAuthToken();
 
   if (unsubscribeButton && token) {
     unsubscribeButton.addEventListener("click", async (event) => {

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useControls } from "./useControls";
 import { useFilters } from "./useFilters";
 import type { Feed } from "utils/types";
-import Cookies from "js-cookie";
+import { getClientAuthToken } from "utils/getClientAuthToken";
 
 interface Props {
   initialFeed: Feed;
@@ -59,7 +59,7 @@ export const useFeed = ({ initialFeed }: Props) => {
   const fetchFeed = async () => {
     setFeedError("");
 
-    const token = Cookies.get("token");
+    const token = getClientAuthToken();
 
     if (!token) {
       return;
