@@ -33,27 +33,25 @@ const shouldRenderFeed =
 const userHasNoSubscriptions = !feed?.length && !feedLoading && !feedError;
 ---
 
-<div>
-  <section>
-    {feedError && <h2>{feedError}</h2>}
+<section>
+  {feedError && <h2>{feedError}</h2>}
 
-    {
-      shouldRenderFeed && (
-        <NewsFeed initialFeed={feed} initialFeedError={feedError} client:load />
-      )
-    }
+  {
+    shouldRenderFeed && (
+      <NewsFeed initialFeed={feed} initialFeedError={feedError} client:load />
+    )
+  }
 
-    {
-      userHasNoSubscriptions && (
-        <h2>
-          Nothing to see here... Head over to
-          <a href="/manage">Manage Feeds</a>
-          to subscribe to your first feed!
-        </h2>
-      )
-    }
-  </section>
-</div>
+  {
+    userHasNoSubscriptions && (
+      <h2>
+        Nothing to see here... Head over to
+        <a href="/manage">Manage Feeds</a>
+        to subscribe to your first feed!
+      </h2>
+    )
+  }
+</section>
 
 <style>
   * {
