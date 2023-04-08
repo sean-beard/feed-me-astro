@@ -1,11 +1,26 @@
+import jwt from "jsonwebtoken";
 import type { AstroCookies } from "astro";
+import type { User } from "./types";
 
-export const getAuthToken = (cookies: AstroCookies): string | undefined => {
-  const user = cookies.get("user").value;
+export const getUser = (cookies: AstroCookies) => {
+  let user: User | undefined;
+  const userJwt = cookies.get("user").value ?? "";
 
-  if (!user) {
-    return undefined;
+  try {
+    user = jwt.verify(userJwt, import.meta.env.SECRET_JWT_KEY) as User;
+  } catch (err) {
+    console.error(err);
   }
 
-  return JSON.parse(user).token;
+  return user;
+};
+
+export const getAuthToken = (cookies: AstroCookies): string => {
+  const user = getUser(cookies);
+
+  if (!user) {
+    return "";
+  }
+
+  return user.token;
 };

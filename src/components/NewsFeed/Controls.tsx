@@ -1,15 +1,21 @@
 import type { FeedItem } from "utils/types";
 import type { useFeed } from "utils/hooks/useFeed";
-import { getClientAuthToken } from "utils/getClientAuthToken";
 
 interface Props {
   feed: FeedItem[];
   controls: ReturnType<typeof useFeed>["controls"];
   filters: ReturnType<typeof useFeed>["filters"];
   fetchFeed: ReturnType<typeof useFeed>["fetchFeed"];
+  token: string;
 }
 
-export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
+export const Controls = ({
+  feed,
+  controls,
+  filters,
+  fetchFeed,
+  token,
+}: Props) => {
   const mobileFilterClassName = `btn mobile-filter ${
     filters.shouldFilterUnread ? "mobile-filtered" : "mobile-unfiltered"
   }`;
@@ -22,12 +28,6 @@ export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
     });
 
     controls.setIsUpdatingItem(true);
-
-    const token = getClientAuthToken();
-
-    if (!token) {
-      return;
-    }
 
     try {
       const data = await fetch("/item.json", {
@@ -44,7 +44,7 @@ export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
         return;
       }
 
-      await fetchFeed();
+      await fetchFeed(token);
     } catch {
       // TODO: handle error
     } finally {

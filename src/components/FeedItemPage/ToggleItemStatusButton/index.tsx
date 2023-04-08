@@ -1,24 +1,18 @@
 import { useState } from "react";
 import type { FeedItem } from "utils/types";
-import { getClientAuthToken } from "utils/getClientAuthToken";
 
 import "./styles.css";
 
 interface Props {
   feedItem: FeedItem;
+  token: string;
 }
 
-export const ToggleItemStatusButton = ({ feedItem }: Props) => {
+export const ToggleItemStatusButton = ({ feedItem, token }: Props) => {
   const [isRead, setIsRead] = useState(feedItem.isRead);
   const [isLoading, setIsLoading] = useState(false);
 
   const toggleStatus = async () => {
-    const token = getClientAuthToken();
-
-    if (!token) {
-      return;
-    }
-
     const newIsReadStatus = !isRead;
 
     setIsLoading(true);
