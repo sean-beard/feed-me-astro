@@ -184,17 +184,16 @@ html {
 
   .mobile-filter {
     display: block;
+    min-width: auto;
+    margin: 0;
   }
 
   .btn.mobile-filtered {
     background-color: #1a237e;
     color: white;
-    min-width: auto;
   }
 
-  .btn.mobile-unfiltered,
-  .btn.mobile-filtered:hover,
-  .btn.mobile-unfiltered:hover {
+  .btn.mobile-unfiltered {
     background-color: white;
     color: #1a237e;
   }
