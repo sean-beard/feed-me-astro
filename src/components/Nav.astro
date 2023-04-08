@@ -9,24 +9,12 @@ const loginUrl = `${baseApiUrl}/auth/github`;
 ---
 
 <script>
-  import Cookies from "js-cookie";
+  import { logout } from "utils/logout";
 
   const logoutButton = document.getElementById("logoutButton");
 
   if (logoutButton) {
-    logoutButton.addEventListener("click", async () => {
-      const response = await fetch(
-        `${import.meta.env.PUBLIC_BASE_API_URL}/auth/logout`
-      );
-      const data = await response.json();
-
-      if (data.status === 200) {
-        Cookies.remove("user");
-        window.location.replace("/");
-      }
-
-      // TODO: handle error
-    });
+    logoutButton.addEventListener("click", logout);
   }
 </script>
 
@@ -74,6 +62,7 @@ const loginUrl = `${baseApiUrl}/auth/github`;
     font-family: Pacifico, Avenir, Helvetica, Arial, sans-serif;
     font-size: 2rem;
     margin: auto 1rem;
+    text-align: left;
   }
 
   .btn {
