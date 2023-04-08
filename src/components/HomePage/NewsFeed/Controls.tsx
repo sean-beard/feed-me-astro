@@ -5,13 +5,23 @@ interface Props {
   feed: FeedItem[];
   controls: FeedControls;
   filters: FeedFilters;
+  feedLoading: boolean;
   fetchFeed: FetchFeed;
 }
 
-export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
+export const Controls = ({
+  feed,
+  controls,
+  filters,
+  feedLoading,
+  fetchFeed,
+}: Props) => {
   const mobileFilterClassName = `btn mobile-filter ${
     filters.shouldFilterUnread ? "mobile-filtered" : "mobile-unfiltered"
   }`;
+
+  const shouldRenderGlobalCheckbox =
+    (!!feed.length && !feedLoading) || controls.isUpdatingItem;
 
   const handleMarkAll = async (status: "read" | "unread") => {
     const payload: { id: number; isRead: boolean }[] = [];
@@ -55,7 +65,7 @@ export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
   return (
     <div className="controls">
       <div className="status-controls">
-        {!!feed.length && (
+        {shouldRenderGlobalCheckbox && (
           <label>
             <input
               type="checkbox"

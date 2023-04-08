@@ -1,40 +1,36 @@
-import { useEffect, useMemo } from "react";
-import { useFeed } from "utils/hooks/useFeed";
+import { useMemo } from "react";
+import type { FeedControls, FeedFilters, FetchFeed } from "utils/hooks/useFeed";
+import type { Feed } from "utils/types";
 import { FeedItem } from "./FeedItem";
 import { FilterForm } from "./FilterForm";
 import { Controls } from "./Controls";
-import type { Feed } from "utils/types";
 
 import "./styles.css";
 
 interface Props {
-  initialFeedError: string;
-  initialFeed?: Feed;
+  filteredFeed: Feed;
+  feedLoading: boolean;
+  feedError: string;
+  filters: FeedFilters;
+  controls: FeedControls;
+  fetchFeed: FetchFeed;
 }
 
-export const NewsFeed = ({ initialFeed, initialFeedError }: Props) => {
-  const { filteredFeed, filters, controls, fetchFeed, feedError } = useFeed({
-    initialFeed: initialFeed ?? [],
-  });
-
-  useEffect(() => {
-    // Gets latest feed on browser back nav
-    fetchFeed();
-  }, []);
-
-  if (!initialFeed?.length) {
-    return null;
-  }
-
+export const NewsFeed = ({
+  filteredFeed,
+  feedLoading,
+  feedError,
+  filters,
+  controls,
+  fetchFeed,
+}: Props) => {
   const hasNoUnreadItems = useMemo(
     () => !!filteredFeed && !filteredFeed.length,
     [filteredFeed]
   );
 
-  const error = initialFeedError || feedError;
-
-  if (error) {
-    return <h2>{error}</h2>;
+  if (feedError) {
+    return <h2>{feedError}</h2>;
   }
 
   return (
@@ -45,6 +41,7 @@ export const NewsFeed = ({ initialFeed, initialFeedError }: Props) => {
         feed={filteredFeed}
         controls={controls}
         filters={filters}
+        feedLoading={feedLoading}
         fetchFeed={fetchFeed}
       />
 

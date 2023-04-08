@@ -116,6 +116,7 @@ html {
 
 .btn.control-button:hover {
   color: #1a237e;
+  background-color: white;
 }
 
 .control-button + .control-button {
