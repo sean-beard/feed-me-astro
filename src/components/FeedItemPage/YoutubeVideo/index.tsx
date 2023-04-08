@@ -54,7 +54,11 @@ export const YoutubeVideo = ({ videoId }: Props) => {
 
   return (
     <>
-      <button className="btn" type="button" onClick={handlePlaybackRateChange}>
+      <button
+        className="btn playback-btn"
+        type="button"
+        onClick={handlePlaybackRateChange}
+      >
         {playbackRate + "x"}
       </button>
 
