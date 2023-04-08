@@ -40,12 +40,7 @@ const userHasNoSubscriptions = !feed?.length && !feedLoading && !feedError;
 
   {
     shouldRenderFeed && (
-      <NewsFeed
-        client:load
-        initialFeed={feed}
-        initialFeedError={feedError}
-        token={token}
-      />
+      <NewsFeed client:load initialFeed={feed} initialFeedError={feedError} />
     )
   }
 

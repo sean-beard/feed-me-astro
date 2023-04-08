@@ -59,15 +59,12 @@ export const useFeed = ({ initialFeed }: Props) => {
 
   const controls = useControls(filteredFeed);
 
-  const fetchFeed = async (token: string) => {
+  const fetchFeed = async () => {
     setFeedError("");
 
     try {
       const response = await fetch("/feed.json", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       const feed = await response.json();

@@ -6,16 +6,9 @@ interface Props {
   controls: FeedControls;
   filters: FeedFilters;
   fetchFeed: FetchFeed;
-  token: string;
 }
 
-export const Controls = ({
-  feed,
-  controls,
-  filters,
-  fetchFeed,
-  token,
-}: Props) => {
+export const Controls = ({ feed, controls, filters, fetchFeed }: Props) => {
   const mobileFilterClassName = `btn mobile-filter ${
     filters.shouldFilterUnread ? "mobile-filtered" : "mobile-unfiltered"
   }`;
@@ -33,10 +26,7 @@ export const Controls = ({
       const data = await fetch("/item.json", {
         method: "PUT",
         body: JSON.stringify({ items: payload }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (data.status !== 200) {
@@ -44,7 +34,7 @@ export const Controls = ({
         return;
       }
 
-      await fetchFeed(token);
+      await fetchFeed();
     } catch {
       // TODO: handle error
     } finally {

@@ -10,17 +10,16 @@ import "./styles.css";
 interface Props {
   initialFeedError: string;
   initialFeed?: Feed;
-  token: string;
 }
 
-export const NewsFeed = ({ initialFeed, initialFeedError, token }: Props) => {
+export const NewsFeed = ({ initialFeed, initialFeedError }: Props) => {
   const { filteredFeed, filters, controls, fetchFeed, feedError } = useFeed({
     initialFeed: initialFeed ?? [],
   });
 
   useEffect(() => {
     // Gets latest feed on browser back nav
-    fetchFeed(token);
+    fetchFeed();
   }, []);
 
   if (!initialFeed?.length) {
@@ -35,7 +34,7 @@ export const NewsFeed = ({ initialFeed, initialFeedError, token }: Props) => {
   const error = initialFeedError || feedError;
 
   if (error) {
-    return <p>{error}</p>;
+    return <h2>{error}</h2>;
   }
 
   return (
@@ -47,7 +46,6 @@ export const NewsFeed = ({ initialFeed, initialFeedError, token }: Props) => {
         controls={controls}
         filters={filters}
         fetchFeed={fetchFeed}
-        token={token}
       />
 
       {hasNoUnreadItems && <h2>Nothing to see here!</h2>}

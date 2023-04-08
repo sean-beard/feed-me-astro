@@ -49,7 +49,7 @@ const shouldRenderArticle =
   {
     feedItem && !feedItemError && (
       <div>
-        <ToggleItemStatusButton client:load feedItem={feedItem} token={token} />
+        <ToggleItemStatusButton client:load feedItem={feedItem} />
 
         <h2 class="title">{feedItem.title}</h2>
 
@@ -57,7 +57,7 @@ const shouldRenderArticle =
           <div class="item">
             {shouldRenderAudioPlayer && (
               // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
-              <AudioPlayer client:load feedItem={feedItem} token={token} />
+              <AudioPlayer client:load feedItem={feedItem} />
             )}
 
             {youtubeVideoId && (
