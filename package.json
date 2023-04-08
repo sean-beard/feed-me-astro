@@ -10,8 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "^2.2.1",
     "@astrojs/react": "^2.1.1",
-    "astro": "^2.1.9",
+    "astro": "^2.2.1",
     "js-cookie": "^3.0.1",
     "jsonwebtoken": "^9.0.0",
     "materialize-css": "^1.0.0",
