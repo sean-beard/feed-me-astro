@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useFeed } from "utils/hooks/useFeed";
 import { FeedItem } from "./FeedItem";
 import { FilterForm } from "./FilterForm";
@@ -17,6 +17,11 @@ export const NewsFeed = ({ initialFeed, initialFeedError, token }: Props) => {
   const { filteredFeed, filters, controls, fetchFeed, feedError } = useFeed({
     initialFeed: initialFeed ?? [],
   });
+
+  useEffect(() => {
+    // Gets latest feed on browser back nav
+    fetchFeed(token);
+  }, []);
 
   if (!initialFeed?.length) {
     return null;
