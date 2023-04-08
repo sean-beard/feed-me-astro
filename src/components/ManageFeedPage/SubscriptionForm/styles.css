@@ -1,18 +1,18 @@
-form {
+.manage-feeds-section form {
   margin-bottom: 5rem;
 }
 
-.input-field {
+.manage-feeds-section .input-field {
   margin: 1rem auto;
   max-width: 400px;
   width: 80%;
 }
 
-.error {
+.manage-feeds-section .error {
   font-size: 1.5em;
   margin-bottom: 2rem;
 }
 
-.error {
+.manage-feeds-section .error {
   color: maroon;
 }
