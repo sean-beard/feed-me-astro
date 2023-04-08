@@ -1,40 +1,22 @@
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import "materialize-css/dist/js/materialize.min";
-
-import "./styles.css";
+import type { User } from "utils/types";
 import { logout } from "utils/logout";
 
-interface User {
-  name: string;
-  email: string;
-}
-
-const getUser = () => {
-  const user = Cookies.get("user");
-
-  if (!user) {
-    return undefined;
-  }
-
-  return JSON.parse(user);
-};
+import "./styles.css";
 
 const baseApiUrl = import.meta.env.PUBLIC_BASE_API_URL;
 const loginUrl = `${baseApiUrl}/auth/github`;
 
-export const MobileNav = () => {
-  const [user, setUser] = useState<User | null>(null);
+interface Props {
+  user?: User;
+}
 
+export const MobileNav = ({ user }: Props) => {
   useEffect(() => {
     const sideNav = document.querySelector(".sidenav");
     // @ts-ignore
     window.M.Sidenav.init(sideNav);
-  }, []);
-
-  useEffect(() => {
-    const user = getUser();
-    setUser(user);
   }, []);
 
   return (

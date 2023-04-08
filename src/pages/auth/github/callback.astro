@@ -1,9 +1,8 @@
 ---
-interface User {
-  name: string;
-  email: string;
-  token: string;
-}
+import jwt from "jsonwebtoken";
+import type { User } from "utils/types";
+
+const JWT_OPTIONS: jwt.SignOptions = { expiresIn: "7d" };
 
 interface AuthCallbackData {
   status: number;
@@ -23,7 +22,13 @@ if (code) {
   const data: AuthCallbackData = await response.json();
 
   if (data.status === 200) {
-    Astro.cookies.set("user", data.user, { path: "/" });
+    const userJwt = jwt.sign(
+      data.user,
+      import.meta.env.SECRET_JWT_KEY,
+      JWT_OPTIONS
+    );
+
+    Astro.cookies.set("user", userJwt, { path: "/" });
   }
 
   // TODO: handle error

@@ -2,12 +2,15 @@
 import GlobalStyles from "components/GlobalStyles.astro";
 import { MobileNav } from "components/MobileNav";
 import Nav from "components/Nav.astro";
+import { getUser } from "utils/getAuthToken";
 
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+
+const user = getUser(Astro.cookies);
 ---
 
 <!DOCTYPE html>
@@ -30,7 +33,7 @@ const { title } = Astro.props;
   <body>
     <GlobalStyles />
     <Nav />
-    <MobileNav client:only="react" />
+    <MobileNav client:only="react" user={user} />
 
     <main>
       <slot />

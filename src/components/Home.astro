@@ -7,6 +7,8 @@ import { NewsFeed } from "./NewsFeed";
 const ERROR_MESSAGE =
   "Oops! There was an error loading your feed. Please try again later.";
 
+const token = getAuthToken(Astro.cookies);
+
 let feed: Feed | undefined;
 let feedLoading = true;
 let feedError = "";
@@ -14,7 +16,7 @@ let feedError = "";
 try {
   const data = await get<GetFeedResponse>({
     path: "/feed",
-    token: getAuthToken(Astro.cookies) ?? "",
+    token,
   });
 
   feedLoading = false;
@@ -38,7 +40,12 @@ const userHasNoSubscriptions = !feed?.length && !feedLoading && !feedError;
 
   {
     shouldRenderFeed && (
-      <NewsFeed initialFeed={feed} initialFeedError={feedError} client:load />
+      <NewsFeed
+        client:load
+        initialFeed={feed}
+        initialFeedError={feedError}
+        token={token}
+      />
     )
   }
 

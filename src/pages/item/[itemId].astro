@@ -13,10 +13,12 @@ const { itemId } = Astro.params;
 let feedItem: FeedItem | undefined;
 let feedItemError: string | undefined;
 
+const token = getAuthToken(Astro.cookies);
+
 try {
   const data = await get<{ status: number; item: FeedItem }>({
     path: `/item/${itemId}`,
-    token: getAuthToken(Astro.cookies) ?? "",
+    token,
   });
 
   if (data.status !== 200) {
@@ -47,7 +49,7 @@ const shouldRenderArticle =
   {
     feedItem && !feedItemError && (
       <div>
-        <ToggleItemStatusButton client:load feedItem={feedItem} />
+        <ToggleItemStatusButton client:load feedItem={feedItem} token={token} />
 
         <h2 class="title">{feedItem.title}</h2>
 
@@ -55,7 +57,7 @@ const shouldRenderArticle =
           <div class="item">
             {shouldRenderAudioPlayer && (
               // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
-              <AudioPlayer client:load feedItem={feedItem} />
+              <AudioPlayer client:load feedItem={feedItem} token={token} />
             )}
 
             {youtubeVideoId && (

@@ -1,0 +1,39 @@
+p {
+  font-size: 1.25em;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem auto;
+  max-width: 400px;
+  width: 100%;
+}
+
+.feed {
+  text-align: left;
+  margin-right: 1rem;
+}
+
+.btn-wrapper {
+  flex: 1;
+  text-align: right;
+}
+
+.btn {
+  background-color: maroon;
+  text-transform: none;
+}
+
+.btn:focus,
+.btn:hover {
+  background-color: white;
+}
+
+/* Mobile */
+@media (max-width: 37.5em) {
+  .row {
+    padding: 0 2rem;
+  }
+}

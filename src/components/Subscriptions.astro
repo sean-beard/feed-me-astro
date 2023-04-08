@@ -1,11 +1,8 @@
 ---
 import { get } from "utils/api";
 import { getAuthToken } from "utils/getAuthToken";
-
-interface Subscription {
-  id: number;
-  feedName: string;
-}
+import type { Subscription } from "utils/types";
+import { SubscriptionRow } from "./SubscriptionRow";
 
 interface SubscriptionsData {
   status: number;
@@ -15,10 +12,12 @@ interface SubscriptionsData {
 let status = 0;
 let subscriptions: Subscription[] = [];
 
+const token = getAuthToken(Astro.cookies);
+
 try {
   const data = await get<SubscriptionsData>({
     path: "/subscription",
-    token: getAuthToken(Astro.cookies) ?? "",
+    token,
   });
 
   status = data.status;
@@ -29,49 +28,6 @@ try {
   }
 }
 ---
-
-<script>
-  import { deleteRequest } from "utils/api";
-  import { getClientAuthToken } from "utils/getClientAuthToken";
-
-  interface UnsubscribeData {
-    status: number;
-  }
-
-  interface Dataset {
-    subId?: number;
-  }
-
-  const unsubscribeButton = document.getElementById("unsubscribeButton");
-  const token = getClientAuthToken();
-
-  if (unsubscribeButton && token) {
-    unsubscribeButton.addEventListener("click", async (event) => {
-      const target = event.target as EventTarget & { dataset?: Dataset };
-      const subscriptionId = target?.dataset?.subId;
-
-      if (!subscriptionId) {
-        return;
-      }
-
-      try {
-        const { status } = await deleteRequest<UnsubscribeData>({
-          path: "/subscription",
-          token,
-          body: { subscriptionId },
-        });
-
-        if (status === 200) {
-          window.location.reload();
-        } else {
-          // TODO: handle error
-        }
-      } catch {
-        // TODO: handle error
-      }
-    });
-  }
-</script>
 
 <div>
   <h2>Your subscriptions</h2>
@@ -88,17 +44,13 @@ try {
   {
     subscriptions.length > 0 && (
       <ul>
-        {subscriptions.map((sub) => {
+        {subscriptions.map((subscription) => {
           return (
-            <li class="row">
-              <p class="feed">{sub.feedName}</p>
-
-              <div class="btn-wrapper">
-                <button id="unsubscribeButton" class="btn" data-sub-id={sub.id}>
-                  Unsubscribe
-                </button>
-              </div>
-            </li>
+            <SubscriptionRow
+              client:visible
+              subscription={subscription}
+              token={token}
+            />
           );
         })}
       </ul>
@@ -117,44 +69,8 @@ try {
     font-size: 1.25em;
   }
 
-  .row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1rem auto;
-    max-width: 400px;
-    width: 100%;
-  }
-
-  .feed {
-    text-align: left;
-    margin-right: 1rem;
-  }
-
-  .btn-wrapper {
-    flex: 1;
-    text-align: right;
-  }
-
-  .btn {
-    background-color: maroon;
-    text-transform: none;
-  }
-
-  .btn:focus,
-  .btn:hover {
-    background-color: white;
-  }
-
   .error {
     color: maroon;
     font-size: 1.5em;
-  }
-
-  /* Mobile */
-  @media (max-width: 37.5em) {
-    .row {
-      padding: 0 2rem;
-    }
   }
 </style>

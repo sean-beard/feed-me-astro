@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 import type { FeedItem } from "utils/types";
-import { getClientAuthToken } from "utils/getClientAuthToken";
 
 import "./styles.css";
 
 interface Props {
   feedItem: FeedItem & { mediaUrl: string };
+  token: string;
 }
 
-export const AudioPlayer = ({ feedItem }: Props) => {
+export const AudioPlayer = ({ feedItem, token }: Props) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playbackRate, setPlaybackRate] = useState(1);
 
@@ -57,12 +57,6 @@ export const AudioPlayer = ({ feedItem }: Props) => {
     const audioElement = audioRef.current;
 
     if (!audioElement) return;
-
-    const token = getClientAuthToken();
-
-    if (!token) {
-      return;
-    }
 
     const item = { ...feedItem, currentTime: audioElement.currentTime };
 

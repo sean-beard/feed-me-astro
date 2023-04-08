@@ -10,9 +10,10 @@ import "./styles.css";
 interface Props {
   initialFeedError: string;
   initialFeed?: Feed;
+  token: string;
 }
 
-export const NewsFeed = ({ initialFeed, initialFeedError }: Props) => {
+export const NewsFeed = ({ initialFeed, initialFeedError, token }: Props) => {
   const { filteredFeed, filters, controls, fetchFeed, feedError } = useFeed({
     initialFeed: initialFeed ?? [],
   });
@@ -41,6 +42,7 @@ export const NewsFeed = ({ initialFeed, initialFeedError }: Props) => {
         controls={controls}
         filters={filters}
         fetchFeed={fetchFeed}
+        token={token}
       />
 
       {hasNoUnreadItems && <h2>Nothing to see here!</h2>}

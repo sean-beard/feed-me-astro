@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { useControls } from "./useControls";
 import { useFilters } from "./useFilters";
 import type { Feed } from "utils/types";
-import { getClientAuthToken } from "utils/getClientAuthToken";
 
 interface Props {
   initialFeed: Feed;
@@ -56,14 +55,8 @@ export const useFeed = ({ initialFeed }: Props) => {
 
   const controls = useControls(filteredFeed);
 
-  const fetchFeed = async () => {
+  const fetchFeed = async (token: string) => {
     setFeedError("");
-
-    const token = getClientAuthToken();
-
-    if (!token) {
-      return;
-    }
 
     try {
       const response = await fetch("/feed.json", {

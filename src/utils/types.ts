@@ -17,3 +17,14 @@ export interface GetFeedResponse {
   status: number;
   feed: Feed;
 }
+
+export interface Subscription {
+  id: number;
+  feedName: string;
+}
+
+export interface User {
+  name: string;
+  email: string;
+  token: string;
+}
