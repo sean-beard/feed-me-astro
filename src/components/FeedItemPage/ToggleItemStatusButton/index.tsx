@@ -5,10 +5,9 @@ import "./styles.css";
 
 interface Props {
   feedItem: FeedItem;
-  token: string;
 }
 
-export const ToggleItemStatusButton = ({ feedItem, token }: Props) => {
+export const ToggleItemStatusButton = ({ feedItem }: Props) => {
   const [isRead, setIsRead] = useState(feedItem.isRead);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,10 +22,7 @@ export const ToggleItemStatusButton = ({ feedItem, token }: Props) => {
         body: JSON.stringify({
           items: [{ id: feedItem.id, isRead: newIsReadStatus }],
         }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (data.status !== 200) {

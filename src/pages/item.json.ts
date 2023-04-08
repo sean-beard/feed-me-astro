@@ -1,12 +1,13 @@
 import type { APIRoute } from "astro";
 import { put as putRequest } from "utils/api";
+import { getAuthToken } from "utils/getAuthToken";
 
 interface Body {
   items: any[];
   token: string;
 }
 
-export const put: APIRoute = async ({ request }) => {
+export const put: APIRoute = async ({ request, cookies }) => {
   if (request.headers.get("Content-Type") !== "application/json") {
     return new Response(null, {
       status: 400,
@@ -14,16 +15,7 @@ export const put: APIRoute = async ({ request }) => {
     });
   }
 
-  const authHeader = request.headers.get("Authorization");
-
-  if (!authHeader) {
-    return new Response(null, {
-      status: 400,
-      statusText: "Please provide an Authorization header.",
-    });
-  }
-
-  const token = authHeader?.substring(authHeader?.indexOf(" ") + 1);
+  const token = getAuthToken(cookies);
 
   if (!token) {
     return new Response(null, {

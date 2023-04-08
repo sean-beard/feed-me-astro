@@ -5,10 +5,9 @@ import "./styles.css";
 
 interface Props {
   feedItem: FeedItem & { mediaUrl: string };
-  token: string;
 }
 
-export const AudioPlayer = ({ feedItem, token }: Props) => {
+export const AudioPlayer = ({ feedItem }: Props) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playbackRate, setPlaybackRate] = useState(1);
 
@@ -64,10 +63,7 @@ export const AudioPlayer = ({ feedItem, token }: Props) => {
       const data = await fetch("/item.json", {
         method: "PUT",
         body: JSON.stringify({ items: [item] }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (data.status !== 200) {
