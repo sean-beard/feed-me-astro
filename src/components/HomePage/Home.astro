@@ -25,7 +25,7 @@ try {
     feedError = ERROR_MESSAGE;
   }
 
-  feed = data.feed;
+  feed = data.feed.slice(0, 500);
 } catch {
   feedError = ERROR_MESSAGE;
 }
