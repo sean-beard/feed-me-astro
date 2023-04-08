@@ -21,7 +21,7 @@ const loginUrl = `${baseApiUrl}/auth/github`;
       const data = await response.json();
 
       if (data.status === 200) {
-        Cookies.remove("token");
+        Cookies.remove("user");
         window.location.replace("/");
       }
 
