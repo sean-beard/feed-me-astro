@@ -22,9 +22,12 @@ const matchesFilteredItemType = (
 
 const matchesSearchTerm = (item: FeedItem, filters: FeedFilters): boolean => {
   const matchesSearchCriteria =
-    item.title.toLowerCase().indexOf(filters.searchTerm) > -1 ||
-    item.feedName.toLowerCase().indexOf(filters.searchTerm) > -1 ||
-    (item.description || "").toLowerCase().indexOf(filters.searchTerm) > -1;
+    item.title.toLowerCase().indexOf(filters.searchTerm.toLowerCase()) > -1 ||
+    item.feedName.toLowerCase().indexOf(filters.searchTerm.toLowerCase()) >
+      -1 ||
+    (item.description || "")
+      .toLowerCase()
+      .indexOf(filters.searchTerm.toLowerCase()) > -1;
 
   if (filters.shouldFilterUnread) {
     return !item.isRead && matchesSearchCriteria;
