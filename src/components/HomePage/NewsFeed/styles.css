@@ -65,13 +65,14 @@ html {
 }
 
 .fade-out {
-  transition: all 0.25s;
+  transition: all 0.15s;
   transform: translateY(-16px);
   opacity: 0;
 }
 
 .card-link {
   width: 100%;
+  outline: none;
 }
 
 .card-panel {
@@ -83,8 +84,8 @@ html {
   width: 100%;
 }
 
-.card-panel:hover,
-.card-panel:focus {
+.card-link:hover .card-panel,
+.card-link:focus-visible .card-panel {
   background-color: #bbbbbb;
 }
 

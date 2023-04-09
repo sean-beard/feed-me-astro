@@ -43,16 +43,6 @@ export const Controls = ({
         // TODO: handle error
         return;
       }
-
-      if (status === "read" && filters.shouldFilterUnread) {
-        payload.forEach((item) => {
-          const element = document.getElementById(item.id.toString());
-
-          element?.classList?.add("fade-out");
-        });
-      }
-
-      await fetchFeed();
     } catch {
       // TODO: handle error
     } finally {
@@ -60,6 +50,16 @@ export const Controls = ({
       controls.setAllItemsChecked(false);
       controls.setCheckedItemIds(new Set());
     }
+
+    if (status === "read" && filters.shouldFilterUnread) {
+      payload.forEach((item) => {
+        const element = document.getElementById(item.id.toString());
+
+        element?.classList?.add("fade-out");
+      });
+    }
+
+    await fetchFeed();
   };
 
   return (
