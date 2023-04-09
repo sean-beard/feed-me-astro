@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Feed, GetFeedResponse } from "utils/types";
 import { get } from "utils/api";
 import { useControls } from "../useControls";
@@ -56,7 +56,18 @@ export const useFeed = ({ token }: Props) => {
   const [feedLoading, setFeedLoading] = useState(false);
   const [feedError, setFeedError] = useState("");
 
-  const filteredFeed = getFilteredFeed(feed, filters);
+  const filteredFeed = useMemo(
+    () => getFilteredFeed(feed, filters),
+    [
+      feed,
+      filters.showArticles,
+      filters.showPodcasts,
+      filters.showYoutube,
+      filters.searchTerm,
+      filters.shouldFilterUnread,
+    ]
+  );
+
   const controls = useControls(filteredFeed);
 
   const fetchFeed = async () => {
