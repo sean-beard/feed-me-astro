@@ -53,6 +53,10 @@ html {
   background: none;
 }
 
+.scroll-container * {
+  transition: all 0.15s;
+}
+
 .controls,
 .feed-row {
   display: flex;
@@ -65,7 +69,6 @@ html {
 }
 
 .fade-out {
-  transition: all 0.15s;
   transform: translateY(-16px);
   opacity: 0;
 }
