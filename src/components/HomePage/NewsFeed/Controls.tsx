@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import type { FeedItem } from "utils/types";
 import type { FeedControls, FetchFeed, FeedFilters } from "utils/hooks/useFeed";
 
@@ -63,6 +63,16 @@ export const Controls = ({
     await fetchFeed();
   };
 
+  const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+
+    filters.setShouldFilterUnread(isChecked);
+
+    setMobileFilterClassName(
+      isChecked ? "mobile-filtered" : "mobile-unfiltered"
+    );
+  };
+
   return (
     <div className="controls">
       <div className="status-controls">
@@ -110,9 +120,7 @@ export const Controls = ({
         <input
           type="checkbox"
           checked={filters.shouldFilterUnread}
-          onChange={(e) => {
-            filters.setShouldFilterUnread(e.target.checked);
-          }}
+          onChange={handleFilterChange}
         />
         <span>Filter by unread</span>
       </label>
@@ -122,15 +130,7 @@ export const Controls = ({
           type="checkbox"
           className="visually-hidden"
           checked={filters.shouldFilterUnread}
-          onChange={(e) => {
-            const isChecked = e.target.checked;
-
-            filters.setShouldFilterUnread(isChecked);
-
-            setMobileFilterClassName(
-              isChecked ? "mobile-filtered" : "mobile-unfiltered"
-            );
-          }}
+          onChange={handleFilterChange}
         />
         <span className="visually-hidden">Filter by unread</span>
         <i className="material-icons">filter_list</i>
