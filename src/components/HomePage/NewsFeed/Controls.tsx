@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { FeedItem } from "utils/types";
 import type { FeedControls, FetchFeed, FeedFilters } from "utils/hooks/useFeed";
 
@@ -16,9 +17,9 @@ export const Controls = ({
   feedLoading,
   fetchFeed,
 }: Props) => {
-  const mobileFilterClassName = `btn mobile-filter ${
+  const [mobileFilterClassName, setMobileFilterClassName] = useState(
     filters.shouldFilterUnread ? "mobile-filtered" : "mobile-unfiltered"
-  }`;
+  );
 
   const shouldRenderGlobalCheckbox =
     (!!feed.length && !feedLoading) || controls.isUpdatingItem;
@@ -116,13 +117,19 @@ export const Controls = ({
         <span>Filter by unread</span>
       </label>
 
-      <label className={mobileFilterClassName}>
+      <label className={`btn mobile-filter ${mobileFilterClassName}`}>
         <input
           type="checkbox"
           className="visually-hidden"
           checked={filters.shouldFilterUnread}
           onChange={(e) => {
-            filters.setShouldFilterUnread(e.target.checked);
+            const isChecked = e.target.checked;
+
+            filters.setShouldFilterUnread(isChecked);
+
+            setMobileFilterClassName(
+              isChecked ? "mobile-filtered" : "mobile-unfiltered"
+            );
           }}
         />
         <span className="visually-hidden">Filter by unread</span>
