@@ -72,6 +72,7 @@ html {
 
 .card-link {
   width: 100%;
+  outline: none;
 }
 
 .card-panel {
@@ -83,8 +84,8 @@ html {
   width: 100%;
 }
 
-.card-panel:hover,
-.card-panel:focus {
+.card-link:hover .card-panel,
+.card-link:focus-visible .card-panel {
   background-color: #bbbbbb;
 }
 
