@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
-import { useControls } from "./useControls";
-import { useFilters } from "./useFilters";
+import { useEffect, useState } from "react";
 import type { Feed, GetFeedResponse } from "utils/types";
 import { get } from "utils/api";
+import { useControls } from "../useControls";
+import { useFilters } from "../useFilters";
+import { getFilteredFeed } from "./getFilteredFeed";
 
 export interface FeedControls {
   allItemsChecked: boolean;
@@ -43,39 +44,6 @@ const getCachedFeed = (): Feed | null => {
 
 const setCachedFeed = (feed: Feed) => {
   localStorage.setItem("feed", JSON.stringify(feed.slice(0, 350)));
-};
-
-const getFilteredFeed = (feed: Feed | null, filters: FeedFilters): Feed => {
-  return (feed || [])
-    .filter((item) => {
-      const isPodcast = item.mediaType === "audio/mpeg";
-      const isYoutubeVideo = item.url.indexOf("youtube.com") > 0;
-      const isArticle = !isPodcast && !isYoutubeVideo;
-
-      if (filters.showArticles && filters.showPodcasts && filters.showYoutube)
-        return true;
-      if (filters.showPodcasts && filters.showYoutube)
-        return isPodcast || isYoutubeVideo;
-      if (filters.showArticles && filters.showYoutube)
-        return isArticle || isYoutubeVideo;
-      if (filters.showArticles && filters.showPodcasts)
-        return isArticle || isPodcast;
-      if (filters.showPodcasts) return isPodcast;
-      if (filters.showYoutube) return isYoutubeVideo;
-      if (filters.showArticles) return isArticle;
-    })
-    .filter((item) => {
-      const searchCriteria =
-        item.title.toLowerCase().indexOf(filters.searchTerm) > -1 ||
-        item.feedName.toLowerCase().indexOf(filters.searchTerm) > -1 ||
-        (item.description || "").toLowerCase().indexOf(filters.searchTerm) > -1;
-
-      if (filters.shouldFilterUnread) {
-        return !item.isRead && searchCriteria;
-      }
-
-      return searchCriteria;
-    });
 };
 
 interface Props {
