@@ -1,7 +1,7 @@
-import type { useFeed } from "utils/hooks/useFeed";
+import type { FeedFilters } from "utils/hooks/useFeed";
 
 interface Props {
-  filters: ReturnType<typeof useFeed>["filters"];
+  filters: FeedFilters;
 }
 
 const Toggles = ({ filters }: Props) => {
