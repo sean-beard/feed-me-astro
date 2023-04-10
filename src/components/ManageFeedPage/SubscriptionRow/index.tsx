@@ -31,17 +31,18 @@ export const SubscriptionRow = ({ subscription, token }: Props) => {
     <li className="row">
       <p className="feed">{subscription.feedName}</p>
 
-      <div className="btn-wrapper">
-        <button
-          id="unsubscribeButton"
-          className="btn"
-          onClick={() => {
-            handleUnsubscribe(subscription.id);
-          }}
-        >
-          Unsubscribe
-        </button>
-      </div>
+      <button
+        id="unsubscribeButton"
+        className="btn"
+        onClick={() => {
+          handleUnsubscribe(subscription.id);
+        }}
+      >
+        <i className="material-icons">delete</i>
+        <span className="visually-hidden">
+          Unsubscribe from {subscription.feedName}
+        </span>
+      </button>
     </li>
   );
 };

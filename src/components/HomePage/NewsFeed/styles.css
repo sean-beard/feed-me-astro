@@ -206,4 +206,8 @@ html {
   .filter-form .input-field {
     width: 95%;
   }
+
+  .filter-form [type="checkbox"] + span:not(.lever) {
+    padding-left: 30px;
+  }
 }
