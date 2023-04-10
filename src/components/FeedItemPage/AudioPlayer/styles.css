@@ -1,16 +1,10 @@
-.audio-player-wrapper {
-  max-width: 1000px;
-  width: 90%;
-  margin: 0 auto;
-}
-
 .audio-player-wrapper .btn i {
   font-size: 2.5em;
 }
 
 audio {
   margin-bottom: 3rem;
-  width: 90%;
+  width: 95%;
 }
 
 audio:focus {
@@ -32,11 +26,4 @@ figcaption {
 
 .btn + .btn {
   margin-left: 0.5rem;
-}
-
-/* Tablet */
-@media (max-width: 48em) {
-  .audio-player-wrapper {
-    width: 95%;
-  }
 }
