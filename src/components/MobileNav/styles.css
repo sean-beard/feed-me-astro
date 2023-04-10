@@ -51,6 +51,10 @@
   margin: 1rem 0 !important;
 }
 
+.sidenav li > a {
+  font-size: 1.25rem;
+}
+
 .sidenav-btn {
   background-color: #1565c0;
 }
