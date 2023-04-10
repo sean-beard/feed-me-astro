@@ -48,7 +48,7 @@ const shouldRenderArticle =
 
   {
     feedItem && !feedItemError && (
-      <div>
+      <div class="feed-item-page-container">
         <ToggleItemStatusButton client:load feedItem={feedItem} />
 
         <h2 class="title">{feedItem.title}</h2>
@@ -83,9 +83,15 @@ const shouldRenderArticle =
     text-align: center;
   }
 
+  .feed-item-page-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   .title {
-    margin: 0;
-    margin-bottom: 1rem;
+    margin: 0 auto;
+    margin-bottom: 2.5rem;
   }
 
   .item {
@@ -101,6 +107,10 @@ const shouldRenderArticle =
     .item-container {
       margin: 1rem auto 2rem auto;
       padding: 0;
+    }
+
+    .feed-item-page-container {
+      width: 95%;
     }
   }
 </style>
