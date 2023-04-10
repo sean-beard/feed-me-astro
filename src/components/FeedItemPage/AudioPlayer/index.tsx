@@ -86,7 +86,7 @@ export const AudioPlayer = ({ feedItem }: Props) => {
   };
 
   return (
-    <>
+    <div className="audio-player-wrapper">
       <button className="btn" onClick={handleRewind}>
         <i className="material-icons">replay_10</i>
         <span className="visually-hidden">Rewind 10 seconds</span>
@@ -118,6 +118,6 @@ export const AudioPlayer = ({ feedItem }: Props) => {
           dangerouslySetInnerHTML={{ __html: feedItem.description }}
         />
       </figure>
-    </>
+    </div>
   );
 };

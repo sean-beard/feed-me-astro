@@ -1,13 +1,16 @@
-.btn i {
+.audio-player-wrapper {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.audio-player-wrapper .btn i {
   font-size: 2.5em;
 }
 
 audio {
-  border: 3px solid darkgray;
-  background-color: darkgray;
   margin-bottom: 3rem;
-  width: 75%;
-  max-width: 1280px;
+  width: 90%;
 }
 
 audio:focus {
@@ -16,6 +19,10 @@ audio:focus {
 
 figure {
   margin: 0;
+}
+
+figcaption {
+  font-size: 1.25rem;
 }
 
 .btn {
@@ -29,9 +36,7 @@ figure {
 
 /* Tablet */
 @media (max-width: 48em) {
-  audio {
-    border: none;
-    background-color: transparent;
-    width: 100%;
+  .audio-player-wrapper {
+    width: 95%;
   }
 }
