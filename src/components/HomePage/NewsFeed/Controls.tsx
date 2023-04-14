@@ -47,20 +47,12 @@ export const Controls = ({
     } catch {
       // TODO: handle error
     } finally {
-      controls.setIsUpdatingItem(false);
       controls.setAllItemsChecked(false);
       controls.setCheckedItemIds(new Set());
     }
 
-    if (status === "read" && filters.shouldFilterUnread) {
-      payload.forEach((item) => {
-        const element = document.getElementById(item.id.toString());
-
-        element?.classList?.add("fade-out");
-      });
-    }
-
     await fetchFeed();
+    controls.setIsUpdatingItem(false);
   };
 
   const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {

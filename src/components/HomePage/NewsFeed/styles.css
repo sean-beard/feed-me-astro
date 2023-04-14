@@ -68,11 +68,6 @@ html {
   min-height: 4.5rem;
 }
 
-.fade-out {
-  transform: translateY(-16px);
-  opacity: 0;
-}
-
 .card-link {
   width: 100%;
   outline: none;
