@@ -4,6 +4,7 @@ import type { FeedControls, FeedFilters, FetchFeed } from "utils/hooks/useFeed";
 import type { Feed } from "utils/types";
 import { FeedItem } from "./FeedItem";
 import { FilterForm } from "./FilterForm";
+import { FeedItemsSkeleton } from "./FeedSkeleton";
 import { Controls } from "./Controls";
 
 import "./styles.css";
@@ -47,7 +48,9 @@ export const NewsFeed = ({
 
       {hasNoUnreadItems && <h2>Nothing to see here!</h2>}
 
-      {!!filteredFeed.length && (
+      {controls.isUpdatingItem && <FeedItemsSkeleton />}
+
+      {!!filteredFeed.length && !controls.isUpdatingItem && (
         <div className="scroll-container" ref={listRef}>
           <ViewportList viewportRef={listRef} items={filteredFeed}>
             {(feedItem) => (

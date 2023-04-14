@@ -39,8 +39,7 @@ export const Home = ({ token }: Props) => {
 
       {userHasNoSubscriptions && (
         <h2>
-          Nothing to see here... Head over to
-          <a href="/manage">Manage Feeds</a>
+          Nothing to see here... Head over to <a href="/manage">Manage Feeds</a>{" "}
           to subscribe to your first feed!
         </h2>
       )}
