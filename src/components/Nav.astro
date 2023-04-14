@@ -39,7 +39,13 @@ const loginUrl = `${baseApiUrl}/auth/github`;
     )
   }
 
-  {!isAuthenticated && <a href={loginUrl}>Login with Github</a>}
+  {
+    !isAuthenticated && (
+      <a data-test-id="nav-login-link" href={loginUrl}>
+        Login with Github
+      </a>
+    )
+  }
 </nav>
 
 <style>
