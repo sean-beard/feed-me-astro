@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import type { FeedFilters } from "utils/hooks/useFeed";
 
 interface Props {
@@ -44,9 +45,15 @@ const Toggles = ({ filters }: Props) => {
 };
 
 const SearchInput = ({ filters }: Props) => {
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  const hasFocus = document.activeElement === searchInputRef?.current;
+  const shouldRaiseLabel = !!filters.searchTerm || hasFocus;
+
   return (
     <div className="input-field">
       <input
+        ref={searchInputRef}
         id="search"
         type="search"
         name="search"
@@ -56,7 +63,7 @@ const SearchInput = ({ filters }: Props) => {
         }}
       />
 
-      <label htmlFor="search" className={filters.searchTerm ? "active" : ""}>
+      <label htmlFor="search" className={shouldRaiseLabel ? "active" : ""}>
         Search {filters.shouldFilterUnread ? "unread" : "all"}
       </label>
 
@@ -66,6 +73,10 @@ const SearchInput = ({ filters }: Props) => {
           type="button"
           onClick={() => {
             filters.setSearchTerm("");
+
+            if (searchInputRef?.current) {
+              searchInputRef.current.focus();
+            }
           }}
         >
           <span className="visually-hidden">Clear search text</span>
