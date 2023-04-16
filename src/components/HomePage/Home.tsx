@@ -22,7 +22,7 @@ export const Home = ({ token }: Props) => {
     feed && !feed?.length && !feedLoading && !feedError;
 
   return (
-    <section style={{ textAlign: "center" }}>
+    <section data-test-id="home" style={{ textAlign: "center" }}>
       {feedError && <h2>{feedError}</h2>}
       {!shouldRenderFeed && feedLoading && <FeedSkeleton />}
 
@@ -38,7 +38,7 @@ export const Home = ({ token }: Props) => {
       )}
 
       {userHasNoSubscriptions && (
-        <h2>
+        <h2 data-test-id="no-subs-message">
           Nothing to see here... Head over to <a href="/manage">Manage Feeds</a>{" "}
           to subscribe to your first feed!
         </h2>

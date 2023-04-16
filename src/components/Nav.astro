@@ -20,7 +20,7 @@ const loginUrl = `${baseApiUrl}/auth/github`;
 
 <nav>
   <h1>
-    <a href="/">FeedMe</a>
+    <a data-test-id="home-link" href="/">FeedMe</a>
   </h1>
 
   {
@@ -28,7 +28,7 @@ const loginUrl = `${baseApiUrl}/auth/github`;
       <div class="auth-nav">
         <ul>
           <li>
-            <a href="/manage">Manage Feeds</a>
+            <a data-test-id="manage-feeds-link" href="/manage">Manage Feeds</a>
           </li>
         </ul>
 

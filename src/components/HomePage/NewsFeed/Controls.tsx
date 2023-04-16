@@ -71,6 +71,7 @@ export const Controls = ({
         {shouldRenderGlobalCheckbox && (
           <label>
             <input
+              data-test-id="toggle-select-all"
               type="checkbox"
               checked={controls.allItemsChecked}
               onChange={(e) => {
