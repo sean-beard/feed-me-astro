@@ -34,6 +34,8 @@ export const NewsFeed = ({
     return <h2>{feedError}</h2>;
   }
 
+  const feedLoadingWhenCaughtUp = hasNoUnreadItems && feedLoading;
+
   return (
     <div data-test-id="newsfeed">
       <FilterForm filters={filters} />
@@ -46,9 +48,11 @@ export const NewsFeed = ({
         fetchFeed={fetchFeed}
       />
 
-      {hasNoUnreadItems && <h2>Nothing to see here!</h2>}
+      {hasNoUnreadItems && !feedLoading && <h2>Nothing to see here!</h2>}
 
-      {controls.isUpdatingItem && <FeedItemsSkeleton />}
+      {(controls.isUpdatingItem || feedLoadingWhenCaughtUp) && (
+        <FeedItemsSkeleton />
+      )}
 
       {!!filteredFeed.length && !controls.isUpdatingItem && (
         <div className="scroll-container" ref={listRef}>
