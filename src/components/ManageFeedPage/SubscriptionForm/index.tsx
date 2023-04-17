@@ -68,7 +68,7 @@ export const SubscriptionForm = ({ token }: Props) => {
           </label>
         </div>
 
-        <button type="submit" className="btn">
+        <button data-test-id="subscribe-button" type="submit" className="btn">
           {isLoading ? "Subscribing" : "Subscribe"}
         </button>
       </form>

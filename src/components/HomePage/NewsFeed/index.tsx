@@ -35,7 +35,7 @@ export const NewsFeed = ({
   }
 
   return (
-    <>
+    <div data-test-id="newsfeed">
       <FilterForm filters={filters} />
 
       <Controls
@@ -74,6 +74,6 @@ export const NewsFeed = ({
           </ViewportList>
         </div>
       )}
-    </>
+    </div>
   );
 };
