@@ -4,6 +4,7 @@ import { get } from "utils/api";
 import { useControls } from "../useControls";
 import { useFilters } from "../useFilters";
 import { getFilteredFeed } from "./getFilteredFeed";
+import { setCachedFeed, getCachedFeed } from "./cache";
 
 export interface FeedControls {
   allItemsChecked: boolean;
@@ -31,20 +32,6 @@ export type FetchFeed = () => Promise<void>;
 
 const FEED_ERROR_MESSAGE =
   "Oops! There was an error loading your feed. Please try again later.";
-
-const getCachedFeed = (): Feed | null => {
-  const cachedFeed = localStorage.getItem("feed");
-
-  if (!cachedFeed) {
-    return null;
-  }
-
-  return JSON.parse(cachedFeed);
-};
-
-const setCachedFeed = (feed: Feed) => {
-  localStorage.setItem("feed", JSON.stringify(feed.slice(0, 350)));
-};
 
 interface Props {
   token: string;
