@@ -4,7 +4,6 @@ import { getAuthToken } from "utils/getAuthToken";
 
 interface Body {
   items: any[];
-  token: string;
 }
 
 export const put: APIRoute = async ({ request, cookies }) => {

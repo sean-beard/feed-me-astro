@@ -1,0 +1,49 @@
+self.addEventListener("notificationclick", (event) => {
+  console.log("[Service Worker] Notification Clicked");
+
+  event.notification.close();
+
+  const url = event.notification.data.url;
+
+  event.waitUntil(
+    clients
+      .matchAll({
+        type: "window",
+      })
+      .then((clientList) => {
+        for (const client of clientList) {
+          if (client.url === url && "focus" in client) {
+            return client.focus();
+          }
+        }
+
+        if (clients.openWindow) {
+          return clients.openWindow(url);
+        }
+      })
+  );
+});
+
+self.addEventListener("push", function (event) {
+  console.log("[Service Worker] Push Received");
+
+  const { title, body, url, feedItemId } = JSON.parse(event.data.text());
+
+  // Keep the service worker alive until the notification is created.
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      tag: feedItemId,
+      body,
+      vibrate: [200, 100, 200, 100, 200, 100, 200],
+      icon: "./android-chrome-192x192.png",
+      actions: [
+        {
+          action: "Detail",
+          title: "View",
+          icon: "./android-chrome-192x192.png",
+        },
+      ],
+      data: { url },
+    })
+  );
+});
