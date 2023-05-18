@@ -29,6 +29,19 @@ try {
 }
 ---
 
+<script>
+  import { registerNotificationSubscription } from "utils/serviceWorker";
+
+  const button = document.getElementById("notif-btn");
+
+  if (button) {
+    button.addEventListener("click", () => {
+      // Browser-specific notification subscription
+      registerNotificationSubscription();
+    });
+  }
+</script>
+
 <div>
   <h2>Your subscriptions</h2>
 
@@ -38,6 +51,14 @@ try {
         Oops! There was an issue getting your subscriptions. Please try again
         later.
       </h3>
+    )
+  }
+
+  {
+    subscriptions.length > 0 && (
+      <button id="notif-btn" class="btn">
+        Get notified
+      </button>
     )
   }
 
