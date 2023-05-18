@@ -35,7 +35,15 @@ try {
   const button = document.getElementById("notif-btn");
 
   if (button) {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
+      const permission = await Notification.requestPermission();
+
+      if (permission !== "granted") {
+        console.warn(
+          "Notification permission not granted. Will not register service worker."
+        );
+        return;
+      }
       // Browser-specific notification subscription
       registerNotificationSubscription();
     });
