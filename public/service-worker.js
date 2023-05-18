@@ -13,7 +13,7 @@ self.addEventListener("notificationclick", (event) => {
       .then((clientList) => {
         for (const client of clientList) {
           if (client.url === url && "focus" in client) {
-            return client.focus();
+            return client.focus().then(() => client.navigate(url));
           }
         }
 
