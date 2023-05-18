@@ -15,7 +15,16 @@ function urlBase64ToUint8Array(base64String: string) {
 }
 
 export const registerNotificationSubscription = async () => {
-  navigator.serviceWorker.register("service-worker.js");
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  try {
+    await navigator.serviceWorker.register("service-worker.js");
+  } catch (error) {
+    console.error("Service worker registration failed:", error);
+    return;
+  }
 
   const registration = await navigator.serviceWorker.ready;
   const existingSubscription = await registration.pushManager.getSubscription();
