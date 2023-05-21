@@ -43,6 +43,8 @@ export const registerNotificationSubscription = async () => {
     applicationServerKey: convertedVapidKey,
   });
 
+  console.log('Attempting to store subscription', subscription);
+
   fetch("notification.json", {
     method: "POST",
     headers: { "Content-type": "application/json" },
