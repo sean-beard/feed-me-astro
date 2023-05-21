@@ -2,15 +2,34 @@
 import GlobalStyles from "components/GlobalStyles.astro";
 import { MobileNav } from "components/MobileNav";
 import Nav from "components/Nav.astro";
-import { getUser } from "utils/getAuthToken";
+import PreLoginHome from "components/PreLoginHome.astro";
+import { get } from "utils/api";
+import { getAuthToken, getUser } from "utils/getAuthToken";
 
 interface Props {
   title: string;
 }
 
+interface Payload {
+  status: number;
+}
+
 const { title } = Astro.props;
 
-const user = getUser(Astro.cookies);
+let user = getUser(Astro.cookies);
+const token = getAuthToken(Astro.cookies);
+
+const data = await get<Payload>({
+  // this is a hack - any endpoint will return 401 when logged out
+  // TODO: create an endpoint to check auth status
+  path: "/subscription",
+  token,
+});
+
+if (data.status === 401) {
+  Astro.cookies.delete("user");
+  user = undefined;
+}
 ---
 
 <script>
@@ -48,7 +67,7 @@ const user = getUser(Astro.cookies);
     <MobileNav client:only="react" user={user} />
 
     <main>
-      <slot />
+      {user ? <slot /> : <PreLoginHome />}
     </main>
   </body>
 </html>
