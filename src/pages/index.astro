@@ -1,5 +1,6 @@
 ---
 import { Home } from "components/HomePage/Home";
+import PreLoginHome from "components/PreLoginHome.astro";
 import Layout from "layouts/Layout.astro";
 import { getAuthToken } from "utils/getAuthToken";
 
@@ -7,5 +8,5 @@ const token = getAuthToken(Astro.cookies);
 ---
 
 <Layout title="FeedMe">
-  <Home client:only="react" token={token} />
+  {token ? <Home client:only="react" token={token} /> : <PreLoginHome />}
 </Layout>
