@@ -57,7 +57,7 @@ export const post = async <T>({ path, token, body }: PostProps): Promise<T> => {
 interface DeleteProps {
   path: string;
   token: string;
-  body: any;
+  body?: any;
 }
 
 export const deleteRequest = async <T>({

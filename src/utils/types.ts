@@ -28,3 +28,7 @@ export interface User {
   email: string;
   token: string;
 }
+
+export interface Account {
+  notificationEnabled?: boolean;
+}
