@@ -44,3 +44,34 @@ export const post: APIRoute = async ({ request, cookies }) => {
 
   return new Response(null, { status: response.status });
 };
+
+export const put: APIRoute = async ({ request, cookies }) => {
+  const token = getAuthToken(cookies);
+
+  if (!token) {
+    return new Response(null, {
+      status: 400,
+      statusText: "Please provide an Authorization header with a token.",
+    });
+  }
+
+  const body: { preference: "enabled" | "disabled" } = await request.json();
+
+  const { preference } = body;
+
+  if (preference !== "enabled" && preference !== "disabled") {
+    return new Response(null, {
+      status: 400,
+      statusText:
+        "Please provide a `preference` of either 'enabled' or 'disabled'.",
+    });
+  }
+
+  const response = await putUtil<{ status: number }>({
+    path: "/notification",
+    token,
+    body: { preference },
+  });
+
+  return new Response(null, { status: response.status });
+};

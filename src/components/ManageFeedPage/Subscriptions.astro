@@ -30,24 +30,34 @@ try {
 ---
 
 <script>
-  import { registerNotificationSubscription } from "utils/serviceWorker";
+  import { handleNotificationPreferenceToggle } from "utils/serviceWorker";
 
-  const button = document.getElementById("notif-btn");
+  import type { Account } from "utils/types";
 
-  if (button) {
-    button.addEventListener("click", async () => {
-      const permission = await Notification.requestPermission();
+  const initializeToggleElement = async () => {
+    const toggleElement = document.getElementById(
+      "notif-toggle"
+    ) as HTMLInputElement | null;
 
-      if (permission !== "granted") {
-        console.warn(
-          "Notification permission not granted. Will not register service worker."
-        );
-        return;
-      }
-      // Browser-specific notification subscription
-      registerNotificationSubscription();
-    });
-  }
+    if (toggleElement) {
+      const data = await fetch("/account.json", {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const account: Account = await data.json();
+
+      toggleElement.checked =
+        !!account.notificationEnabled && Notification.permission === "granted";
+
+      // use react and MouseEvent<HTMLInputElement> ?
+      toggleElement.addEventListener(
+        "click",
+        handleNotificationPreferenceToggle
+      );
+    }
+  };
+
+  initializeToggleElement();
 </script>
 
 <div>
@@ -64,9 +74,14 @@ try {
 
   {
     subscriptions.length > 0 && (
-      <button id="notif-btn" class="btn">
-        Get notified
-      </button>
+      <div class="switch">
+        <label>
+          Nofitications: Off
+          <input id="notif-toggle" type="checkbox" />
+          <span class="lever" />
+          On
+        </label>
+      </div>
     )
   }
 
@@ -101,5 +116,17 @@ try {
   .error {
     color: maroon;
     font-size: 1.5em;
+  }
+
+  .switch label {
+    color: #2c3e50;
+    font-size: 1.2em;
+  }
+
+  .switch label input[type="checkbox"]:checked + .lever {
+    background-color: #1565c0;
+  }
+  .switch label input[type="checkbox"]:checked + .lever::after {
+    background-color: #1a237e;
   }
 </style>

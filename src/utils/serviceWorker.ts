@@ -14,7 +14,17 @@ function urlBase64ToUint8Array(base64String: string) {
   return outputArray;
 }
 
-export const registerNotificationSubscription = async () => {
+const updateToggleState = (isChecked: boolean) => {
+  const toggle = document.getElementById(
+    "notif-toggle"
+  ) as HTMLInputElement | null;
+
+  if (toggle) {
+    toggle.checked = isChecked;
+  }
+};
+
+const registerNotificationSubscription = async () => {
   if (!("serviceWorker" in navigator)) {
     return;
   }
@@ -43,11 +53,93 @@ export const registerNotificationSubscription = async () => {
     applicationServerKey: convertedVapidKey,
   });
 
-  console.log('Attempting to store subscription', subscription);
-
   fetch("notification.json", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ subscription, origin: window.location.origin }),
   });
+};
+
+type NotificationPermissionStatus = "granted" | "not-granted";
+
+const requestNotificationPermission =
+  async (): Promise<NotificationPermissionStatus> => {
+    const permission = await Notification.requestPermission();
+
+    let status: NotificationPermissionStatus | undefined;
+
+    if (permission === "granted") {
+      console.log("Notification permission is currently granted.");
+      status = "granted";
+    } else {
+      console.log("Notification permission is currently:", permission);
+      status = "not-granted";
+    }
+
+    return status;
+  };
+
+/** @throws {Error} */
+const toggleNotificationPreference = async (
+  preference: "enabled" | "disabled"
+) => {
+  const data = await fetch("/notification.json", {
+    method: "PUT",
+    body: JSON.stringify({ preference }),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (data.status !== 201) {
+    throw new Error(`Error updating notification preference to: ${preference}`);
+  }
+};
+
+/** @throws {Error} */
+const attemptToEnableNotifications = async () => {
+  try {
+    await toggleNotificationPreference("enabled");
+  } catch (error) {
+    console.error("Server error. Will not request notification permission");
+    throw error;
+  }
+
+  const notificationPermissionStatus = await requestNotificationPermission();
+
+  if (notificationPermissionStatus === "not-granted") {
+    updateToggleState(false);
+
+    console.warn(
+      "Notification permission not granted. Will not register notification subscription."
+    );
+    return;
+  }
+
+  try {
+    registerNotificationSubscription();
+  } catch (error) {
+    console.error("Error registering notification subscription.");
+    throw error;
+  }
+};
+
+export const handleNotificationPreferenceToggle = async (event: MouseEvent) => {
+  const toggleElement = event.target as HTMLInputElement | null;
+
+  if (toggleElement?.checked === false) {
+    try {
+      await toggleNotificationPreference("disabled");
+    } catch (error) {
+      updateToggleState(true);
+      console.error("Server error:", error);
+    }
+  }
+
+  if (toggleElement?.checked) {
+    try {
+      await attemptToEnableNotifications();
+    } catch (error) {
+      updateToggleState(false);
+      console.error("Error attempting to enable notifications:", error);
+    }
+  }
 };
