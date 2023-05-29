@@ -80,7 +80,7 @@ const requestNotificationPermission =
   };
 
 /** @throws {Error} */
-const toggleNotificationPreference = async (
+export const toggleNotificationPreference = async (
   preference: "enabled" | "disabled"
 ) => {
   const data = await fetch("/notification.json", {
@@ -95,7 +95,7 @@ const toggleNotificationPreference = async (
 };
 
 /** @throws {Error} */
-const attemptToEnableNotifications = async () => {
+export const attemptToEnableNotifications = async () => {
   try {
     await toggleNotificationPreference("enabled");
   } catch (error) {
@@ -119,27 +119,5 @@ const attemptToEnableNotifications = async () => {
   } catch (error) {
     console.error("Error registering notification subscription.");
     throw error;
-  }
-};
-
-export const handleNotificationPreferenceToggle = async (event: MouseEvent) => {
-  const toggleElement = event.target as HTMLInputElement | null;
-
-  if (toggleElement?.checked === false) {
-    try {
-      await toggleNotificationPreference("disabled");
-    } catch (error) {
-      updateToggleState(true);
-      console.error("Server error:", error);
-    }
-  }
-
-  if (toggleElement?.checked) {
-    try {
-      await attemptToEnableNotifications();
-    } catch (error) {
-      updateToggleState(false);
-      console.error("Error attempting to enable notifications:", error);
-    }
   }
 };

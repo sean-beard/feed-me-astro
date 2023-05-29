@@ -10,9 +10,10 @@ interface SubscribeData {
 
 interface Props {
   token: string;
+  refetchSubs: () => Promise<void>;
 }
 
-export const SubscriptionForm = ({ token }: Props) => {
+export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
   const [feedUrl, setFeedUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -34,8 +35,9 @@ export const SubscriptionForm = ({ token }: Props) => {
         body: { url: feedUrl },
       });
 
-      // TODO: refetch client-side instead of full reload?
-      window.location.reload();
+      await refetchSubs();
+      setIsLoading(false);
+      setFeedUrl("");
     } catch {
       setIsLoading(false);
 
@@ -68,7 +70,12 @@ export const SubscriptionForm = ({ token }: Props) => {
           </label>
         </div>
 
-        <button data-test-id="subscribe-button" type="submit" className="btn">
+        <button
+          data-test-id="subscribe-button"
+          type="submit"
+          disabled={isLoading}
+          className="btn"
+        >
           {isLoading ? "Subscribing" : "Subscribe"}
         </button>
       </form>
