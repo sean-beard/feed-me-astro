@@ -1,15 +1,25 @@
-import type { Subscription } from "utils/types";
+import { useState } from "react";
 import { deleteRequest } from "utils/api";
+import type { Subscription } from "utils/types";
 
 import "./styles.css";
 
 interface Props {
   subscription: Subscription;
+  refetchSubs: () => Promise<void>;
   token: string;
 }
 
-export const SubscriptionRow = ({ subscription, token }: Props) => {
+export const SubscriptionRow = ({
+  subscription,
+  token,
+  refetchSubs,
+}: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleUnsubscribe = async (subscriptionId: number) => {
+    setIsLoading(true);
+
     try {
       const { status } = await deleteRequest<{ status: number }>({
         path: "/subscription",
@@ -18,12 +28,14 @@ export const SubscriptionRow = ({ subscription, token }: Props) => {
       });
 
       if (status === 200) {
-        window.location.reload();
+        await refetchSubs();
       } else {
         // TODO: handle error
       }
     } catch {
       // TODO: handle error
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -34,6 +46,7 @@ export const SubscriptionRow = ({ subscription, token }: Props) => {
       <button
         id="unsubscribeButton"
         className="btn"
+        disabled={isLoading}
         onClick={() => {
           handleUnsubscribe(subscription.id);
         }}
