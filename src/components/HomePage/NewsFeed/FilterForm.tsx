@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import type { FeedFilters } from "utils/hooks/useFeed";
+import type { FeedItem } from "utils/types";
 
 interface Props {
   filters: FeedFilters;
@@ -87,9 +88,50 @@ const SearchInput = ({ filters }: Props) => {
   );
 };
 
-export const FilterForm = ({ filters }: Props) => {
+interface FilterFormProps {
+  filters: FeedFilters;
+  appendToFeed: (searchResults: FeedItem[]) => void;
+  setFeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const FilterForm = ({
+  filters,
+  appendToFeed,
+  setFeedLoading,
+}: FilterFormProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSearchSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!formRef.current) {
+      return;
+    }
+
+    setFeedLoading(true);
+
+    const formData = new FormData(formRef.current);
+    const searchTerm = formData.get("search");
+
+    try {
+      const response = await fetch("feed.json", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ searchTerm }),
+      });
+
+      const searchResults = await response.json();
+
+      appendToFeed(searchResults);
+    } catch {
+      // TODO: handle error
+    } finally {
+      setFeedLoading(false);
+    }
+  };
+
   return (
-    <form className="filter-form">
+    <form ref={formRef} className="filter-form" onSubmit={handleSearchSubmit}>
       <Toggles filters={filters} />
       <SearchInput filters={filters} />
     </form>

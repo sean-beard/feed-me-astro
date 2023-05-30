@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { get as getUtil } from "utils/api";
 import { getAuthToken } from "utils/getAuthToken";
-import type { Account, Subscription } from "utils/types";
+import type { Subscription } from "utils/types";
 
 interface SubscriptionsData {
   status: number;

@@ -15,6 +15,8 @@ export const Home = ({ token }: Props) => {
     controls,
     filters,
     fetchFeed,
+    setFeedLoading,
+    appendToFeed,
   } = useFeed({ token });
 
   const shouldRenderFeed = !!feed?.length && feed.length > 0 && !feedError;
@@ -33,7 +35,9 @@ export const Home = ({ token }: Props) => {
           feedError={feedError}
           controls={controls}
           filters={filters}
+          appendToFeed={appendToFeed}
           fetchFeed={fetchFeed}
+          setFeedLoading={setFeedLoading}
         />
       )}
 

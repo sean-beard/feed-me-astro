@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Feed, GetFeedResponse } from "utils/types";
+import type { Feed, FeedItem, GetFeedResponse } from "utils/types";
 import { get } from "utils/api";
 import { useControls } from "../useControls";
 import { useFilters } from "../useFilters";
@@ -42,6 +42,20 @@ export const useFeed = ({ token }: Props) => {
   const [feed, setFeed] = useState<Feed | null>(null);
   const [feedLoading, setFeedLoading] = useState(false);
   const [feedError, setFeedError] = useState("");
+
+  const appendToFeed = (searchResults: FeedItem[]) => {
+    if (!feed) {
+      setFeed(searchResults);
+      return;
+    }
+
+    const existingItemIds = feed.map((item) => item.id);
+    const newlyLoadedItems = searchResults.filter(
+      (item) => !existingItemIds.includes(item.id)
+    );
+
+    setFeed([...feed, ...newlyLoadedItems]);
+  };
 
   const filteredFeed = useMemo(
     () => getFilteredFeed(feed, filters),
@@ -97,5 +111,7 @@ export const useFeed = ({ token }: Props) => {
     filters,
     controls,
     fetchFeed,
+    setFeedLoading,
+    appendToFeed,
   };
 };
