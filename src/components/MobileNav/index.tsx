@@ -46,14 +46,10 @@ export const MobileNav = ({ user }: Props) => {
         {user && (
           <>
             <li>
-              <a className="sidenav-close" href="/">
-                Home
-              </a>
+              <a href="/">Home</a>
             </li>
             <li>
-              <a className="sidenav-close" href="/manage">
-                Manage Feeds
-              </a>
+              <a href="/manage">Manage Feeds</a>
             </li>
             <li>
               <div className="divider"></div>
@@ -71,9 +67,7 @@ export const MobileNav = ({ user }: Props) => {
 
         {!user && (
           <li>
-            <a className="sidenav-close" href={loginUrl}>
-              Login to Github
-            </a>
+            <a href={loginUrl}>Login to Github</a>
           </li>
         )}
       </ul>
