@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { ViewportList } from "react-viewport-list";
+import { AnimatePresence, motion } from "framer-motion";
 import type { FeedControls, FeedFilters, FetchFeed } from "utils/hooks/useFeed";
 import type { Feed, FeedItem as FeedItemType } from "utils/types";
 import { FeedItem } from "./FeedItem";
@@ -30,8 +29,6 @@ export const NewsFeed = ({
   fetchFeed,
   setFeedLoading,
 }: Props) => {
-  const listRef = useRef<HTMLDivElement | null>(null);
-
   const hasNoUnreadItems = !!filteredFeed && !filteredFeed.length;
 
   if (feedError) {
@@ -58,16 +55,19 @@ export const NewsFeed = ({
 
       {hasNoUnreadItems && !feedLoading && <h2>Nothing to see here!</h2>}
 
-      {(controls.isUpdatingItem || feedLoadingWhenCaughtUp) && (
-        <FeedItemsSkeleton />
-      )}
+      {feedLoadingWhenCaughtUp && <FeedItemsSkeleton />}
 
-      {!!filteredFeed.length && !controls.isUpdatingItem && (
-        <div className="scroll-container" ref={listRef}>
-          <ViewportList viewportRef={listRef} items={filteredFeed}>
-            {(feedItem) => (
+      {!!filteredFeed.length && (
+        <AnimatePresence>
+          {filteredFeed.map((feedItem) => (
+            <motion.div
+              key={feedItem.id}
+              className="scroll-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               <FeedItem
-                key={feedItem.id}
                 feedItem={feedItem}
                 isChecked={controls.checkedItemIds.has(feedItem.id)}
                 onChange={(e) => {
@@ -82,9 +82,9 @@ export const NewsFeed = ({
                   controls.setCheckedItemIds(newSet);
                 }}
               />
-            )}
-          </ViewportList>
-        </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       )}
     </div>
   );

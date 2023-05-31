@@ -47,12 +47,11 @@ export const Controls = ({
     } catch {
       // TODO: handle error
     } finally {
-      controls.setAllItemsChecked(false);
-      controls.setCheckedItemIds(new Set());
     }
 
     await fetchFeed();
     controls.setIsUpdatingItem(false);
+    controls.setAllItemsChecked(false);
   };
 
   const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
