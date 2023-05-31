@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { ViewportList } from "react-viewport-list";
 import type { FeedControls, FeedFilters, FetchFeed } from "utils/hooks/useFeed";
-import type { Feed } from "utils/types";
+import type { Feed, FeedItem as FeedItemType } from "utils/types";
 import { FeedItem } from "./FeedItem";
 import { FilterForm } from "./FilterForm";
 import { FeedItemsSkeleton } from "./FeedSkeleton";
@@ -15,7 +15,9 @@ interface Props {
   feedError: string;
   filters: FeedFilters;
   controls: FeedControls;
+  appendToFeed: (searchResults: FeedItemType[]) => void;
   fetchFeed: FetchFeed;
+  setFeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const NewsFeed = ({
@@ -24,7 +26,9 @@ export const NewsFeed = ({
   feedError,
   filters,
   controls,
+  appendToFeed,
   fetchFeed,
+  setFeedLoading,
 }: Props) => {
   const listRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,7 +42,11 @@ export const NewsFeed = ({
 
   return (
     <div data-test-id="newsfeed">
-      <FilterForm filters={filters} />
+      <FilterForm
+        filters={filters}
+        appendToFeed={appendToFeed}
+        setFeedLoading={setFeedLoading}
+      />
 
       <Controls
         feed={filteredFeed}
