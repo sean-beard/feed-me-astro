@@ -97,6 +97,7 @@ export const SubscriptionList = ({
           {subs.map((subscription) => {
             return (
               <SubscriptionRow
+                key={subscription.id}
                 subscription={subscription}
                 token={token}
                 refetchSubs={refetchSubs}
