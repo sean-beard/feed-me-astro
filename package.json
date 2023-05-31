@@ -21,7 +21,6 @@
     "react": "^18.0.0",
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.0.0",
-    "react-viewport-list": "^7.0.0",
     "youtube-iframe": "^1.0.3"
   },
   "devDependencies": {

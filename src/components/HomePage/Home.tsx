@@ -14,9 +14,9 @@ export const Home = ({ token }: Props) => {
     filteredFeed,
     controls,
     filters,
+    appendToFeed,
     fetchFeed,
     setFeedLoading,
-    appendToFeed,
   } = useFeed({ token });
 
   const shouldRenderFeed = !!feed?.length && feed.length > 0 && !feedError;
