@@ -1,5 +1,6 @@
 import type { Feed, FeedItem } from "utils/types";
 import type { FeedFilters } from ".";
+import { getCachedFeed } from "./cache";
 
 const matchesFilteredItemType = (
   item: FeedItem,
@@ -40,11 +41,9 @@ export const getFilteredFeed = (
   feed: Feed | null,
   filters: FeedFilters
 ): Feed => {
-  if (!feed) {
-    return [];
-  }
+  const cachedFeed = getCachedFeed();
 
-  return feed.filter((item) => {
+  return (feed || cachedFeed || []).filter((item) => {
     return (
       matchesFilteredItemType(item, filters) && matchesSearchTerm(item, filters)
     );
