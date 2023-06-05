@@ -53,7 +53,7 @@ export const NewsFeed = ({
         fetchFeed={fetchFeed}
       />
 
-      {hasNoUnreadItems && !feedLoading && <h2>Nothing to see here!</h2>}
+      {hasNoUnreadItems && !feedLoading && <h2>Clean plate club! 🍽</h2>}
 
       {feedLoadingWhenCaughtUp && <FeedItemsSkeleton />}
 
