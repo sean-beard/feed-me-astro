@@ -3,45 +3,7 @@ import type { FeedFilters } from "utils/hooks/useFeed";
 import type { FeedItem } from "utils/types";
 import { SearchInput } from "./SearchInput";
 import { search } from "./search";
-
-const Toggles = ({ filters }: { filters: FeedFilters }) => {
-  return (
-    <div className="toggles">
-      <label>
-        <input
-          type="checkbox"
-          checked={filters.showArticles}
-          onChange={(e) => {
-            filters.setShowArticles(e.target.checked);
-          }}
-        />
-        <span>Articles</span>
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={filters.showPodcasts}
-          onChange={(e) => {
-            filters.setShowPodcasts(e.target.checked);
-          }}
-        />
-        <span>Podcasts</span>
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          checked={filters.showYoutube}
-          onChange={(e) => {
-            filters.setShowYoutube(e.target.checked);
-          }}
-        />
-        <span>YouTube</span>
-      </label>
-    </div>
-  );
-};
+import { Toggles } from "./Toggles";
 
 interface FilterFormProps {
   filters: FeedFilters;
