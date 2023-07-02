@@ -1,12 +1,10 @@
 import { useRef } from "react";
 import type { FeedFilters } from "utils/hooks/useFeed";
 import type { FeedItem } from "utils/types";
+import { SearchInput } from "./SearchInput";
+import { search } from "./search";
 
-interface Props {
-  filters: FeedFilters;
-}
-
-const Toggles = ({ filters }: Props) => {
+const Toggles = ({ filters }: { filters: FeedFilters }) => {
   return (
     <div className="toggles">
       <label>
@@ -45,49 +43,6 @@ const Toggles = ({ filters }: Props) => {
   );
 };
 
-const SearchInput = ({ filters }: Props) => {
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
-
-  const hasFocus = document.activeElement === searchInputRef?.current;
-  const shouldRaiseLabel = !!filters.searchTerm || hasFocus;
-
-  return (
-    <div className="input-field">
-      <input
-        ref={searchInputRef}
-        id="search"
-        type="search"
-        name="search"
-        value={filters.searchTerm}
-        onChange={(e) => {
-          filters.setSearchTerm(e.target.value);
-        }}
-      />
-
-      <label htmlFor="search" className={shouldRaiseLabel ? "active" : ""}>
-        Search {filters.shouldFilterUnread ? "unread" : "all"}
-      </label>
-
-      {!!filters.searchTerm.length && (
-        <button
-          className="clear-search-btn"
-          type="button"
-          onClick={() => {
-            filters.setSearchTerm("");
-
-            if (searchInputRef?.current) {
-              searchInputRef.current.focus();
-            }
-          }}
-        >
-          <span className="visually-hidden">Clear search text</span>
-          <i className="material-icons">clear</i>
-        </button>
-      )}
-    </div>
-  );
-};
-
 interface FilterFormProps {
   filters: FeedFilters;
   appendToFeed: (searchResults: FeedItem[]) => void;
@@ -104,23 +59,23 @@ export const FilterForm = ({
   const handleSearchSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!formRef.current) {
+    const form = formRef.current;
+
+    if (!form) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const searchTerm = formData.get("search")?.toString();
+
+    if (!searchTerm) {
       return;
     }
 
     setFeedLoading(true);
 
-    const formData = new FormData(formRef.current);
-    const searchTerm = formData.get("search");
-
     try {
-      const response = await fetch("feed.json", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ searchTerm }),
-      });
-
-      const searchResults = await response.json();
+      const searchResults = await search(searchTerm);
 
       appendToFeed(searchResults);
     } catch {
@@ -133,7 +88,7 @@ export const FilterForm = ({
   return (
     <form ref={formRef} className="filter-form" onSubmit={handleSearchSubmit}>
       <Toggles filters={filters} />
-      <SearchInput filters={filters} />
+      <SearchInput filters={filters} appendToFeed={appendToFeed} />
     </form>
   );
 };
