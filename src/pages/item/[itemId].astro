@@ -48,12 +48,12 @@ const shouldRenderArticle =
 
   {
     feedItem && !feedItemError && (
-      <div class="feed-item-page-container">
+      <div class={youtubeVideoId ? "" : "feed-item-page-container"}>
         <ToggleItemStatusButton client:load feedItem={feedItem} />
 
         <h2 class="title">{feedItem.title}</h2>
 
-        <div class="item-container">
+        <div class={youtubeVideoId ? "" : "item-container"}>
           <div class="item">
             {shouldRenderAudioPlayer && (
               // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
