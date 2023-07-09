@@ -2,6 +2,10 @@
   margin: 0;
 }
 
+.video-container {
+  max-width: 1350px;
+}
+
 /* Tablet + Desktop */
 @media (min-width: 37.5em) {
   .video-container {
