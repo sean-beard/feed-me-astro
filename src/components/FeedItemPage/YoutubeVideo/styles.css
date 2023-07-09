@@ -43,7 +43,9 @@
 
 /* Mobile */
 @media (max-width: 37.5em) {
-  .playback-btn {
-    margin-bottom: 2rem;
+  .video-wrapper iframe,
+  .video-wrapper embed,
+  .video-wrapper object {
+    padding: 0;
   }
 }
