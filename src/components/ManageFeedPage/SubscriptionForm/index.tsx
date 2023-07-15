@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { post } from "utils/api";
 
 import "./styles.css";
+import { SubscriptionError } from "./SubscriptionError";
 
 interface SubscribeData {
   status: number;
@@ -16,11 +17,17 @@ interface Props {
 export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
   const [feedUrl, setFeedUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorCode, setErrorCode] = useState<number>();
+
+  const errorUrl = useMemo(
+    () =>
+      `https://github.com/sean-beard/feed-me-astro/issues/new?title=Unsupported%20RSS%20Format&body=URL:%20${feedUrl}`,
+    [feedUrl]
+  );
 
   const handleSubscription = async (event: React.FormEvent) => {
     event.preventDefault();
-    setErrorMessage("");
+    setErrorCode(undefined);
 
     if (!feedUrl) {
       return;
@@ -29,29 +36,38 @@ export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
     setIsLoading(true);
 
     try {
-      await post<SubscribeData>({
+      const response = await post<SubscribeData>({
         path: "/subscription",
         token,
         body: { url: feedUrl },
       });
 
+      if (response.status !== 200) {
+        setErrorCode(response.status);
+        setIsLoading(false);
+        return;
+      }
+
       await refetchSubs();
       setIsLoading(false);
       setFeedUrl("");
     } catch {
+      setErrorCode(500);
       setIsLoading(false);
-
-      setErrorMessage(
-        "Oops! There was an error loading your subscriptions. Please try again later."
-      );
     }
   };
 
   return (
     <section className="manage-feeds-section">
-      <h2>Subscribe to a feed</h2>
+      <h2 style={{ marginBottom: "2rem" }}>Subscribe to a feed</h2>
 
-      {errorMessage && <h3 className="error">{errorMessage}</h3>}
+      <SubscriptionError
+        errorCode={errorCode}
+        errorUrl={errorUrl}
+        onClose={() => {
+          setErrorCode(undefined);
+        }}
+      />
 
       <form onSubmit={handleSubscription}>
         <div className="input-field">
