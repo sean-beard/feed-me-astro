@@ -8,15 +8,20 @@
   width: 80%;
 }
 
-.manage-feeds-section .error {
+.manage-feeds-section .error,
+.manage-feeds-section .success {
   font-size: 1.2em;
   margin-bottom: 1rem;
+  margin-top: 0;
+  padding: 0 0.5rem;
 }
 
 .manage-feeds-section .error {
   color: maroon;
-  margin-top: 0;
-  padding: 0 0.5rem;
+}
+
+.manage-feeds-section .success {
+  color: green;
 }
 
 .manage-feeds-section .error-card {

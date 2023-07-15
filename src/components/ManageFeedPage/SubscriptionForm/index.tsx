@@ -17,6 +17,7 @@ interface Props {
 export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
   const [feedUrl, setFeedUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubSuccessful, setIsSubSuccessful] = useState(false);
   const [errorCode, setErrorCode] = useState<number>();
 
   const errorUrl = useMemo(
@@ -28,6 +29,7 @@ export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
   const handleSubscription = async (event: React.FormEvent) => {
     event.preventDefault();
     setErrorCode(undefined);
+    setIsSubSuccessful(false);
 
     if (!feedUrl) {
       return;
@@ -45,21 +47,26 @@ export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
       if (response.status !== 200) {
         setErrorCode(response.status);
         setIsLoading(false);
+        setIsSubSuccessful(false);
         return;
       }
 
       await refetchSubs();
       setIsLoading(false);
+      setIsSubSuccessful(true);
       setFeedUrl("");
     } catch {
       setErrorCode(500);
       setIsLoading(false);
+      setIsSubSuccessful(false);
     }
   };
 
   return (
     <section className="manage-feeds-section">
       <h2 style={{ marginBottom: "2rem" }}>Subscribe to a feed</h2>
+
+      {isSubSuccessful && <h3 className="success">Successfully subscribed!</h3>}
 
       <SubscriptionError
         errorCode={errorCode}
