@@ -8,11 +8,48 @@
   width: 80%;
 }
 
-.manage-feeds-section .error {
-  font-size: 1.5em;
-  margin-bottom: 2rem;
+.manage-feeds-section .error,
+.manage-feeds-section .success {
+  font-size: 1.2em;
+  margin-bottom: 1rem;
+  margin-top: 0;
+  padding: 0 0.5rem;
 }
 
 .manage-feeds-section .error {
   color: maroon;
+}
+
+.manage-feeds-section .success {
+  color: green;
+}
+
+.manage-feeds-section .error-card {
+  background-color: lightgray;
+
+  border: 2px solid maroon;
+  border-radius: 8px;
+
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+}
+
+.unstyled-button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.unstyled-button:active,
+.unstyled-button:focus {
+  border: 2px solid maroon;
+  background-color: lightgray;
 }
