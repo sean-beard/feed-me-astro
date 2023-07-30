@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   attemptToEnableNotifications,
+  registerNotificationSubscription,
   toggleNotificationPreference,
 } from "utils/serviceWorker";
 import type { Account, Subscription } from "utils/types";
@@ -9,6 +10,7 @@ import { SubscriptionListSkeleton } from "./Skeleton";
 import { SubscriptionRow } from "./SubscriptionRow";
 
 import "./styles.css";
+import { getAccountPreferences } from "utils/account";
 
 interface Props {
   token: string;
@@ -29,20 +31,13 @@ export const SubscriptionList = ({
     useState(false);
 
   useEffect(() => {
-    fetch("/account.json", {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((account: Account) => {
-        const notificationsEnabled =
-          !!account.notificationEnabled &&
-          Notification.permission === "granted";
-        setNotificationToggleEnabled(notificationsEnabled);
-      });
+    getAccountPreferences().then((preferences) => {
+      setNotificationToggleEnabled(preferences.notificationsEnabled);
+    });
   }, []);
 
   const handleNotificationPreferenceToggle = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const toggleElement = event.target as HTMLInputElement | null;
 
