@@ -16,7 +16,7 @@ function urlBase64ToUint8Array(base64String: string) {
 
 const updateToggleState = (isChecked: boolean) => {
   const toggle = document.getElementById(
-    "notif-toggle"
+    "notif-toggle",
   ) as HTMLInputElement | null;
 
   if (toggle) {
@@ -24,7 +24,7 @@ const updateToggleState = (isChecked: boolean) => {
   }
 };
 
-const registerNotificationSubscription = async () => {
+export const registerNotificationSubscription = async () => {
   if (!("serviceWorker" in navigator)) {
     return;
   }
@@ -36,17 +36,11 @@ const registerNotificationSubscription = async () => {
     return;
   }
 
-  const registration = await navigator.serviceWorker.ready;
-  const existingSubscription = await registration.pushManager.getSubscription();
-
-  if (existingSubscription) {
-    return;
-  }
-
   const response = await fetch("/notification.json");
   const vapidPublicKey = await response.text();
   const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
 
+  const registration = await navigator.serviceWorker.ready;
   const subscription = await registration.pushManager.subscribe({
     // we don't plan to send notifications that don't have a visible effect for the user
     userVisibleOnly: true,
@@ -81,7 +75,7 @@ const requestNotificationPermission =
 
 /** @throws {Error} */
 export const toggleNotificationPreference = async (
-  preference: "enabled" | "disabled"
+  preference: "enabled" | "disabled",
 ) => {
   const data = await fetch("/notification.json", {
     method: "PUT",
@@ -109,7 +103,7 @@ export const attemptToEnableNotifications = async () => {
     updateToggleState(false);
 
     console.warn(
-      "Notification permission not granted. Will not register notification subscription."
+      "Notification permission not granted. Will not register notification subscription.",
     );
     return;
   }

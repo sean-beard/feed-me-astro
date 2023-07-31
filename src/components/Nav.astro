@@ -1,5 +1,6 @@
 ---
 import { getAuthToken } from "utils/getAuthToken";
+import { RenewNotificationSubscription } from "./RenewNotificationSubscription";
 
 const token = getAuthToken(Astro.cookies);
 const isAuthenticated = !!token;
@@ -26,6 +27,8 @@ const loginUrl = `${baseApiUrl}/auth/github`;
   {
     isAuthenticated && (
       <div class="auth-nav">
+        <RenewNotificationSubscription client:only="react" />
+        
         <ul>
           <li>
             <a data-test-id="manage-feeds-link" href="/manage">Manage Feeds</a>
