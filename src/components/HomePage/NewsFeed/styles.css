@@ -1,6 +1,32 @@
-html {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+.dark-theme .toggles label {
+  color: var(--font-color);
+}
+
+.dark-theme [type="checkbox"] + span:not(.lever)::before {
+  border: 2px solid gray;
+}
+
+.dark-theme [type="checkbox"]:checked + span:not(.lever)::before {
+  border-color: var(--background-color);
+  border-right-color: var(--baby-blue);
+  border-bottom-color: var(--baby-blue);
+}
+
+.dark-theme .card-panel {
+  background-color: var(--off-black);
+}
+
+.dark-theme .card-link:hover .card-panel,
+.dark-theme .card-link:focus-visible .card-panel {
+  background-color: var(--blue);
+}
+
+.dark-theme .card-link p {
+  color: var(--font-color);
+}
+
+.dark-theme .card-panel.unread {
+  border-left: 4px solid var(--baby-blue);
 }
 
 .filter-form {
@@ -22,13 +48,8 @@ html {
 }
 
 .toggles label {
-  color: #1a237e;
+  color: var(--blue);
   font-weight: bold;
-}
-
-[type="checkbox"]:checked + span:not(.lever)::before {
-  border-right-color: #1a237e;
-  border-bottom-color: #1a237e;
 }
 
 .input-field {
@@ -37,6 +58,16 @@ html {
   margin-top: 0;
   width: 80%;
   max-width: 400px;
+}
+
+[type="checkbox"] + span:not(.lever)::before {
+  border: 2px solid var(--blue);
+}
+
+[type="checkbox"]:checked + span:not(.lever)::before {
+  border-color: var(--background-color);
+  border-right-color: var(--blue);
+  border-bottom-color: var(--blue);
 }
 
 .clear-search-btn {
@@ -78,7 +109,6 @@ html {
   cursor: pointer;
   padding: 1rem;
   text-align: center;
-  color: #1a237e;
   width: 100%;
 }
 
@@ -87,8 +117,12 @@ html {
   background-color: #bbbbbb;
 }
 
+.card-link p {
+  color: var(--blue);
+}
+
 .card-panel.unread {
-  border-left: 4px solid #1a237e;
+  border-left: 4px solid var(--blue);
   font-weight: bold;
 }
 
@@ -110,14 +144,15 @@ html {
 
 /* Controls */
 .btn.control-button {
-  background-color: #1a237e;
+  background-color: var(--blue);
   margin-bottom: 0;
   margin-top: 0;
 }
 
-.btn.control-button:hover {
-  color: #1a237e;
-  background-color: white;
+.btn.control-button:hover,
+.btn.control-button:focus {
+  color: var(--blue);
+  background-color: var(--off-white);
 }
 
 .control-button + .control-button {
@@ -131,7 +166,7 @@ html {
 }
 
 .desktop-filter {
-  color: #1a237e;
+  color: var(--blue);
   font-weight: bold;
   margin-left: 1rem;
 }
@@ -188,13 +223,13 @@ html {
   }
 
   .btn.mobile-filtered {
-    background-color: #1a237e;
-    color: white;
+    background-color: var(--blue);
+    color: var(--background-color);
   }
 
   .btn.mobile-unfiltered {
-    background-color: white;
-    color: #1a237e;
+    background-color: var(--background-color);
+    color: var(--blue);
   }
 
   .toggles,

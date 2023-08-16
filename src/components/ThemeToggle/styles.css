@@ -1,0 +1,15 @@
+.theme-toggle.switch {
+  margin: 0 1rem;
+}
+
+.theme-toggle.switch label {
+  font-size: 1.2rem;
+}
+
+.theme-toggle.switch label input[type="checkbox"]:checked + .lever {
+  background-color: var(--background-color);
+}
+
+.theme-toggle.switch label input[type="checkbox"]:checked + .lever::after {
+  background-color: gray;
+}

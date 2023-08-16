@@ -1,11 +1,14 @@
 import ContentLoader from "react-content-loader";
 
+const BLUE = "#1a237e";
+
 export const SubscriptionListSkeleton = () => {
   const rows = [...Array(5).keys()];
 
   return (
     <div>
       <ContentLoader
+        backgroundColor={BLUE}
         height="30"
         width="265"
         style={{ display: "block", margin: "0 auto", marginBottom: "20px" }}
@@ -16,6 +19,7 @@ export const SubscriptionListSkeleton = () => {
       {rows.map((row) => (
         <ContentLoader
           key={row}
+          backgroundColor={BLUE}
           height="55"
           width="550"
           style={{ display: "block", margin: "0 auto", marginBottom: "8px" }}
