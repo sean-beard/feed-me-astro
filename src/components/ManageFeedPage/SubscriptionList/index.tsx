@@ -65,7 +65,7 @@ export const SubscriptionList = ({
   };
 
   return (
-    <div>
+    <div className="subscription-list">
       <h2>Your subscriptions</h2>
 
       {loading && !subs.length && <SubscriptionListSkeleton />}
