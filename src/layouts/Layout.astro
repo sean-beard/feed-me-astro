@@ -2,6 +2,7 @@
 import GlobalStyles from "components/GlobalStyles.astro";
 import { MobileNav } from "components/MobileNav";
 import Nav from "components/Nav.astro";
+import { ThemeInitializer } from "components/ThemeInitializer";
 import { getUser } from "utils/getAuthToken";
 
 interface Props {
@@ -36,7 +37,8 @@ const user = getUser(Astro.cookies);
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="dark-theme">
+  <body>
+    <ThemeInitializer client:only="react" />
     <GlobalStyles />
     <Nav />
     <MobileNav client:only="react" user={user} />
