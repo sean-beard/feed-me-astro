@@ -1,17 +1,25 @@
+.dark-theme .subscription-list .switch label {
+  color: var(--baby-blue);
+}
+
 .error {
   color: maroon;
   font-size: 1.5em;
 }
 
-.switch label {
-  color: #2c3e50;
+.subscription-list .switch label {
+  color: var(--dark-blue);
   font-size: 1.2em;
 }
 
-.switch label input[type="checkbox"]:checked + .lever {
-  background-color: #1565c0;
+.subscription-list .switch label input[type="checkbox"]:checked + .lever {
+  background-color: var(--light-blue);
 }
 
-.switch label input[type="checkbox"]:checked + .lever::after {
-  background-color: #1a237e;
+.subscription-list
+  .switch
+  label
+  input[type="checkbox"]:checked
+  + .lever::after {
+  background-color: var(--blue);
 }

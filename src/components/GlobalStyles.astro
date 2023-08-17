@@ -1,4 +1,63 @@
 <style is:global>
+  :root {
+    --blue: #1a237e;
+    --dark-blue: #2c3e50;
+    --light-blue: #1565c0;
+    --baby-blue: #42a5f5;
+    --gray: #9e9e9e;
+    --off-white: #F5F5F5;
+    --off-black: #333333;
+    
+    --background-color: var(--off-white);
+    --font-color: var(--dark-blue);
+  }
+  
+  .dark-theme {
+    --background-color: var(--off-black);
+    --font-color: var(--off-white);
+  }
+
+  .dark-theme .input-field > input,
+  .dark-theme .input-field > label,
+  .dark-theme
+    input[type="search"]:not(.browser-default):focus:not([readonly]) + label,
+  .dark-theme
+    input[type="text"]:not(.browser-default):focus:not([readonly])
+    + label {
+    color: var(--font-color);
+  }
+
+  .dark-theme #search {
+    color: var(--font-color);
+    background-color: var(--background-color);
+  }
+
+  .dark-theme .material-icons {
+    color: var(--font-color);
+  }
+
+  html {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+  }
+
+  main {
+    background-color: var(--background-color);
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, div
+   {
+    color: var(--font-color);
+  }
+  
+  code {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+
   h2 {
     font-size: 2rem;
   }
@@ -8,8 +67,7 @@
     flex-direction: column;
     min-height: 99vh;
     height: 100%;
-    background-color: white;
-    padding-bottom: 2.5rem;
+    background-color: var(--off-white);
   }
 
   main {
@@ -25,12 +83,13 @@
   input[type="search"]:not(.browser-default):focus:not([readonly]),
   input[type="text"]:not(.browser-default):focus:not([readonly]) {
     border-bottom: 1px solid #9e9e9e;
+    box-shadow: 0 1px 0 0 var(--dark-blue);
   }
 
   .input-field > label,
   input[type="text"]:not(.browser-default):focus:not([readonly]) + label,
   input[type="search"]:not(.browser-default):focus:not([readonly]) + label {
-    color: #2c3e50;
+    color: var(--dark-blue);
   }
 
   #nav {
@@ -39,7 +98,7 @@
 
   #nav a {
     font-weight: bold;
-    color: #2c3e50;
+    color: var(--dark-blue);
   }
 
   #nav a.router-link-exact-active {
@@ -61,18 +120,18 @@
   }
 
   .btn {
-    background-color: #1a237e;
+    background-color: var(--blue);
   }
 
   .btn:focus {
     outline: 5px solid #9e9e9e;
     outline: 5px auto -webkit-focus-ring-color;
-    background-color: #1a237e;
+    background-color: var(--blue);
   }
 
   .btn:hover {
-    background-color: white;
-    color: #1a237e;
+    background-color: var(--off-white);
+    color: var(--blue);
   }
 
   .visually-hidden {
@@ -89,7 +148,8 @@
   /* Mobile */
   @media (max-width: 37.5em) {
     main {
-      padding: 0 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 </style>

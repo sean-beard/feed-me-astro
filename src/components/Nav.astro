@@ -1,6 +1,7 @@
 ---
 import { getAuthToken } from "utils/getAuthToken";
 import { RenewNotificationSubscription } from "./RenewNotificationSubscription";
+import { ThemeToggle } from "./ThemeToggle";
 
 const token = getAuthToken(Astro.cookies);
 const isAuthenticated = !!token;
@@ -29,6 +30,8 @@ const loginUrl = `${baseApiUrl}/auth/github`;
       <div class="auth-nav">
         <RenewNotificationSubscription client:only="react" />
         
+        <ThemeToggle client:only="react" />
+
         <ul>
           <li>
             <a data-test-id="manage-feeds-link" href="/manage">Manage Feeds</a>
@@ -55,12 +58,11 @@ const loginUrl = `${baseApiUrl}/auth/github`;
   @import url("https://fonts.googleapis.com/css?family=Pacifico");
 
   nav {
-    background-color: #1a237e;
+    background-color: var(--blue);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    margin-bottom: 2rem;
   }
 
   ul {
@@ -80,14 +82,14 @@ const loginUrl = `${baseApiUrl}/auth/github`;
   }
 
   .logout-btn {
-    background-color: #1565c0;
+    background-color: var(--light-blue);
     margin: 0 !important;
   }
 
   .logout-btn:hover,
   .logout-btn:focus {
-    background-color: white;
-    color: #1565c0;
+    background-color: var(--off-white);
+    color: var(--light-blue);
   }
 
   /* Mobile */

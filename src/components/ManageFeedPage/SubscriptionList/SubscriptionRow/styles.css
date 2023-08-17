@@ -17,6 +17,7 @@
   text-align: left;
   margin-right: 1rem;
   width: 100%;
+  color: var(--font-color);
 }
 
 .row .btn {
@@ -29,7 +30,7 @@
 .row .btn:focus,
 .row .btn:hover {
   background-color: maroon;
-  color: white;
+  color: var(--background-color);
 }
 
 /* Mobile */

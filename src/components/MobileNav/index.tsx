@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "materialize-css/dist/js/materialize.min";
+import { ThemeToggle } from "components/ThemeToggle";
 import type { User } from "utils/types";
 import { logout } from "utils/logout";
 
@@ -38,6 +39,7 @@ export const MobileNav = ({ user }: Props) => {
               <>
                 <p className="user-name">{user.name}</p>
                 <p>{user.email}</p>
+                <ThemeToggle />
               </>
             )}
           </div>
