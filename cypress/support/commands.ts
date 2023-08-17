@@ -10,7 +10,7 @@ Cypress.Commands.add("subscribe", (feedUrl) => {
   cy.get("input#feedUrl").type(feedUrl);
 
   cy.intercept(Cypress.env("apiBaseUrl") + "/subscription").as(
-    "subscribeRequest"
+    "subscribeRequest",
   );
 
   cy.getByDataTestId("subscribe-button").click();
@@ -22,7 +22,7 @@ Cypress.Commands.add("unsubscribe", (feedName) => {
   cy.getByDataTestId("manage-feeds-link").click();
 
   cy.intercept(Cypress.env("apiBaseUrl") + "/subscription").as(
-    "unsubscribeRequest"
+    "unsubscribeRequest",
   );
 
   cy.contains(feedName).parent().get("button#unsubscribeButton").click();

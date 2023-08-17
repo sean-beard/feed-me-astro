@@ -51,7 +51,7 @@ export const useFeed = ({ token }: Props) => {
 
     const existingItemIds = feed.map((item) => item.id);
     const newlyLoadedItems = searchResults.filter(
-      (item) => !existingItemIds.includes(item.id)
+      (item) => !existingItemIds.includes(item.id),
     );
 
     setFeed([...feed, ...newlyLoadedItems]);
@@ -66,7 +66,7 @@ export const useFeed = ({ token }: Props) => {
       filters.showYoutube,
       filters.searchTerm,
       filters.shouldFilterUnread,
-    ]
+    ],
   );
 
   const controls = useControls(filteredFeed);

@@ -34,19 +34,19 @@ export const useFilters = () => {
   const cachedFilters = getCachedFilters();
 
   const [showArticles, setShowArticlesState] = useState(
-    cachedFilters?.showArticles ?? true
+    cachedFilters?.showArticles ?? true,
   );
   const [showPodcasts, setShowPodcastsState] = useState(
-    cachedFilters?.showPodcasts ?? true
+    cachedFilters?.showPodcasts ?? true,
   );
   const [showYoutube, setShowYoutubeState] = useState(
-    cachedFilters?.showYoutube ?? true
+    cachedFilters?.showYoutube ?? true,
   );
   const [searchTerm, setSearchTermState] = useState(
-    cachedFilters?.searchTerm ?? ""
+    cachedFilters?.searchTerm ?? "",
   );
   const [shouldFilterUnread, setShouldFilterUnreadState] = useState(
-    cachedFilters?.shouldFilterUnread ?? true
+    cachedFilters?.shouldFilterUnread ?? true,
   );
 
   useEffect(() => {

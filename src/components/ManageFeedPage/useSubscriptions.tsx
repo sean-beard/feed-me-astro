@@ -26,7 +26,7 @@ export const useSubscriptions = (): {
       console.log(error);
 
       setSubsError(
-        "Oops! There was an issue getting your subscriptions. Please try again later."
+        "Oops! There was an issue getting your subscriptions. Please try again later.",
       );
     } finally {
       setSubsLoading(false);
