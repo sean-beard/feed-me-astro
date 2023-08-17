@@ -2,15 +2,22 @@ import { useState } from "react";
 import "./styles.css";
 
 export const ThemeToggle = () => {
-  const [notificationToggleEnabled, setNotificationToggleEnabled] =
-    useState(false);
+  const [lightThemeEnabled, setLightThemeEnabled] = useState(
+    localStorage.getItem("prefersDarkTheme") === null,
+  );
 
-  const handleNotificationPreferenceToggle: React.ChangeEventHandler<
-    HTMLInputElement
-  > = () => {
-    document.body.classList.toggle("dark-theme");
+  const handleThemeToggle: React.ChangeEventHandler<HTMLInputElement> = () => {
+    const isLightThemeEnabled = !lightThemeEnabled;
 
-    setNotificationToggleEnabled(!notificationToggleEnabled);
+    if (isLightThemeEnabled) {
+      localStorage.removeItem("prefersDarkTheme");
+      document.body.classList.remove("dark-theme");
+    } else {
+      document.body.classList.add("dark-theme");
+      localStorage.setItem("prefersDarkTheme", "true");
+    }
+
+    setLightThemeEnabled(isLightThemeEnabled);
   };
 
   return (
@@ -20,8 +27,8 @@ export const ThemeToggle = () => {
         <input
           id="toggle"
           type="checkbox"
-          checked={notificationToggleEnabled}
-          onChange={handleNotificationPreferenceToggle}
+          checked={lightThemeEnabled}
+          onChange={handleThemeToggle}
         />
         <span className="lever" />
         🌤️
