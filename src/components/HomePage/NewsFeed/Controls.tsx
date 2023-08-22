@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import type { FeedItem } from "utils/types";
 import type { FeedControls, FetchFeed, FeedFilters } from "utils/hooks/useFeed";
 
@@ -24,6 +24,12 @@ export const Controls = ({
   const shouldRenderGlobalCheckbox =
     (!!feed.length && !feedLoading) || controls.isUpdatingItem;
 
+  useEffect(() => {
+    if (controls.checkedItemIds.size === 0) {
+      controls.setAllItemsChecked(false);
+    }
+  }, [controls.checkedItemIds, controls.setAllItemsChecked]);
+
   const handleMarkAll = async (status: "read" | "unread") => {
     const payload: { id: number; isRead: boolean }[] = [];
 
@@ -46,7 +52,6 @@ export const Controls = ({
       }
     } catch {
       // TODO: handle error
-    } finally {
     }
 
     await fetchFeed();
