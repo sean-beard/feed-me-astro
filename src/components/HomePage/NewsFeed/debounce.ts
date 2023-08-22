@@ -4,7 +4,7 @@ type DebounceFunction<T extends (...args: any[]) => Promise<any>> = (
 
 export function debounce<T extends (...args: any[]) => Promise<any>>(
   func: T,
-  delay: number
+  delay: number,
 ): DebounceFunction<T> {
   let timerId: ReturnType<typeof setTimeout>;
 

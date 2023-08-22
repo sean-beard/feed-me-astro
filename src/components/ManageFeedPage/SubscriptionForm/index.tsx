@@ -23,7 +23,7 @@ export const SubscriptionForm = ({ token, refetchSubs }: Props) => {
   const errorUrl = useMemo(
     () =>
       `https://github.com/sean-beard/feed-me-astro/issues/new?title=Unsupported%20RSS%20Format&body=URL:%20${feedUrl}`,
-    [feedUrl]
+    [feedUrl],
   );
 
   const handleSubscription = async (event: React.FormEvent) => {

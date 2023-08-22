@@ -4,7 +4,7 @@ import { getCachedFeed } from "./cache";
 
 const matchesFilteredItemType = (
   item: FeedItem,
-  { showArticles, showPodcasts, showYoutube }: FeedFilters
+  { showArticles, showPodcasts, showYoutube }: FeedFilters,
 ): boolean => {
   const isPodcast = item.mediaType === "audio/mpeg";
   const isYoutubeVideo = item.url.indexOf("youtube.com") > 0;
@@ -39,7 +39,7 @@ const matchesSearchTerm = (item: FeedItem, filters: FeedFilters): boolean => {
 
 export const getFilteredFeed = (
   feed: Feed | null,
-  filters: FeedFilters
+  filters: FeedFilters,
 ): Feed => {
   const cachedFeed = getCachedFeed();
 

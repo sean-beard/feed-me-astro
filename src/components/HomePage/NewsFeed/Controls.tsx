@@ -18,7 +18,7 @@ export const Controls = ({
   fetchFeed,
 }: Props) => {
   const [mobileFilterClassName, setMobileFilterClassName] = useState(
-    filters.shouldFilterUnread ? "mobile-filtered" : "mobile-unfiltered"
+    filters.shouldFilterUnread ? "mobile-filtered" : "mobile-unfiltered",
   );
 
   const shouldRenderGlobalCheckbox =
@@ -60,7 +60,7 @@ export const Controls = ({
     filters.setShouldFilterUnread(isChecked);
 
     setMobileFilterClassName(
-      isChecked ? "mobile-filtered" : "mobile-unfiltered"
+      isChecked ? "mobile-filtered" : "mobile-unfiltered",
     );
   };
 

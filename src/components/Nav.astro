@@ -29,12 +29,14 @@ const loginUrl = `${baseApiUrl}/auth/github`;
     isAuthenticated && (
       <div class="auth-nav">
         <RenewNotificationSubscription client:only="react" />
-        
+
         <ThemeToggle client:only="react" />
 
         <ul>
           <li>
-            <a data-test-id="manage-feeds-link" href="/manage">Manage Feeds</a>
+            <a data-test-id="manage-feeds-link" href="/manage">
+              Manage Feeds
+            </a>
           </li>
         </ul>
 

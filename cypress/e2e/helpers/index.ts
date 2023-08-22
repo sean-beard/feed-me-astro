@@ -20,7 +20,7 @@ export const login = (page: Cypress.Chainable<Cypress.AUTWindow>) => {
       cy.get("input#login_field").type(username);
       cy.get("input#password").type(password, { log: false });
       cy.get("input[name='commit']").click();
-    }
+    },
   );
 
   // wait for redirect from auth callback

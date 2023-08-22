@@ -81,7 +81,7 @@ export const AudioPlayer = ({ feedItem }: Props) => {
     if (!audioElement || !feedItem.currentTime) return;
 
     audioElement.currentTime = Number(
-      Math.floor(feedItem.currentTime).toFixed(1)
+      Math.floor(feedItem.currentTime).toFixed(1),
     );
   };
 

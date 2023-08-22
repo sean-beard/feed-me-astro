@@ -106,8 +106,8 @@ describe(useFeed.name, () => {
 
     await waitFor(() =>
       expect(result.current.feedError).toEqual(
-        "Oops! There was an error loading your feed. Please try again later."
-      )
+        "Oops! There was an error loading your feed. Please try again later.",
+      ),
     );
   });
 
