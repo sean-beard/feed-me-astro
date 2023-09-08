@@ -37,7 +37,7 @@ const user = getUser(Astro.cookies);
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
+  <body class="dark-theme">
     <ThemeInitializer client:only="react" />
     <GlobalStyles />
     <Nav />
