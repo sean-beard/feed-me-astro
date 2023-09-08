@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 
 export const ThemeToggle = () => {
@@ -6,9 +6,11 @@ export const ThemeToggle = () => {
     localStorage.getItem("prefersDarkTheme") === null,
   );
 
-  const handleThemeToggle: React.ChangeEventHandler<HTMLInputElement> = () => {
-    const isLightThemeEnabled = !lightThemeEnabled;
+  useEffect(() => {
+    setTheme(lightThemeEnabled);
+  }, []);
 
+  const setTheme = (isLightThemeEnabled: boolean) => {
     if (isLightThemeEnabled) {
       localStorage.removeItem("prefersDarkTheme");
       document.body.classList.remove("dark-theme");
@@ -16,6 +18,12 @@ export const ThemeToggle = () => {
       document.body.classList.add("dark-theme");
       localStorage.setItem("prefersDarkTheme", "true");
     }
+  };
+
+  const handleThemeToggle: React.ChangeEventHandler<HTMLInputElement> = () => {
+    const isLightThemeEnabled = !lightThemeEnabled;
+
+    setTheme(isLightThemeEnabled);
 
     setLightThemeEnabled(isLightThemeEnabled);
   };
