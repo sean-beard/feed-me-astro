@@ -4,7 +4,7 @@ import type { User } from "./types";
 
 export const getUser = (cookies: AstroCookies) => {
   let user: User | undefined;
-  const userJwt = cookies.get("user").value ?? "";
+  const userJwt = cookies.get("user")?.value ?? "";
 
   try {
     user = jwt.verify(userJwt, import.meta.env.SECRET_JWT_KEY) as User;
