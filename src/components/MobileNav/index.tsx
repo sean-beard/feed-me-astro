@@ -23,7 +23,12 @@ export const MobileNav = ({ user }: Props) => {
   return (
     <div className="mobile-nav">
       <nav className="indigo darken-4">
-        <a href="#" data-target="slide-out" className="sidenav-trigger">
+        <a
+          href="#"
+          data-target="slide-out"
+          className="sidenav-trigger"
+          data-astro-reload
+        >
           <i className="material-icons">menu</i>
         </a>
         <h1>
