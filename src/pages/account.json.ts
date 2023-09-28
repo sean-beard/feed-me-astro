@@ -3,7 +3,7 @@ import { get as getUtil } from "utils/api";
 import { getAuthToken } from "utils/getAuthToken";
 import type { Account } from "utils/types";
 
-export const get: APIRoute = async ({ cookies }) => {
+export const GET: APIRoute = async ({ cookies }) => {
   const token = getAuthToken(cookies);
 
   if (!token) {

@@ -8,7 +8,7 @@ interface SearchPayload {
   feed: Feed;
 }
 
-export const post: APIRoute = async ({ request, cookies }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
   const token = getAuthToken(cookies);
 
   if (!token) {
