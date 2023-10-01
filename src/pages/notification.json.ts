@@ -3,7 +3,7 @@ import { get as getUtil, post as postUtil, put as putUtil } from "utils/api";
 import { getAuthToken } from "utils/getAuthToken";
 import type { PushSubscription } from "web-push";
 
-export const get: APIRoute = async ({ cookies }) => {
+export const GET: APIRoute = async ({ cookies }) => {
   const token = getAuthToken(cookies);
 
   if (!token) {
@@ -21,7 +21,7 @@ export const get: APIRoute = async ({ cookies }) => {
   return new Response(data.key, { status: data.status });
 };
 
-export const post: APIRoute = async ({ request, cookies }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
   const token = getAuthToken(cookies);
 
   if (!token) {
@@ -45,7 +45,7 @@ export const post: APIRoute = async ({ request, cookies }) => {
   return new Response(null, { status: response.status });
 };
 
-export const put: APIRoute = async ({ request, cookies }) => {
+export const PUT: APIRoute = async ({ request, cookies }) => {
   const token = getAuthToken(cookies);
 
   if (!token) {

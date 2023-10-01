@@ -8,7 +8,7 @@ interface SubscriptionsData {
   subscriptions: Subscription[];
 }
 
-export const get: APIRoute = async ({ cookies }) => {
+export const GET: APIRoute = async ({ cookies }) => {
   const token = getAuthToken(cookies);
 
   if (!token) {

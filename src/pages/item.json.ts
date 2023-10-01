@@ -6,7 +6,7 @@ interface Body {
   items: any[];
 }
 
-export const put: APIRoute = async ({ request, cookies }) => {
+export const PUT: APIRoute = async ({ request, cookies }) => {
   if (request.headers.get("Content-Type") !== "application/json") {
     return new Response(null, {
       status: 400,
