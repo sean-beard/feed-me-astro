@@ -193,8 +193,13 @@
     margin-top: 1rem;
   }
 
-  .card-panel:hover,
-  .card-panel:focus {
+  .card-link:hover .card-panel,
+  .card-link:focus-visible .card-panel {
+    background-color: white;
+  }
+
+  .dark-theme .card-link:hover .card-panel,
+  .dark-theme .card-link:focus-visible .card-panel {
     background-color: initial;
   }
 
