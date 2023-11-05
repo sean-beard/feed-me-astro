@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import type { FeedItem } from "utils/types";
 import type { FeedControls, FetchFeed, FeedFilters } from "utils/hooks/useFeed";
 
@@ -47,6 +47,7 @@ export const Controls = ({
       });
 
       if (data.status !== 200) {
+        controls.setIsUpdatingItem(false);
         // TODO: handle error
         return;
       }
