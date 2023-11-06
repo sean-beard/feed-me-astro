@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
-    "cypress:open": "npx cypress open",
+    "cypress:open": "cypress open",
     "lint": "eslint --ext .ts,.tsx,.astro .",
     "lint:fix": "yarn lint --fix"
   },
@@ -47,6 +47,7 @@
     "jsdom": "^21.1.1",
     "prettier": "^3.0.0",
     "prettier-plugin-astro": "^0.11.1",
+    "typescript": "^5.2.2",
     "vitest": "^0.29.8"
   }
 }
