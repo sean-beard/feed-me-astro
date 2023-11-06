@@ -25,7 +25,11 @@ Cypress.Commands.add("unsubscribe", (feedName) => {
     "unsubscribeRequest",
   );
 
-  cy.contains(feedName).parent().get("button#unsubscribeButton").click();
+  cy.contains(feedName)
+    .parent()
+    .within(() => {
+      cy.get("button#unsubscribeButton").click();
+    });
 
   cy.wait("@unsubscribeRequest");
 });

@@ -23,6 +23,7 @@ describe("Feed", () => {
     toggleButton.should("have.text", "Mark as read");
 
     cy.intercept(baseUrl + "/item.json").as("itemUpdateRequest");
+    cy.wait(2000);
     toggleButton.click();
     cy.wait("@itemUpdateRequest");
 
@@ -47,6 +48,7 @@ describe("Feed", () => {
     toggleButton.should("have.text", "Mark as read");
 
     cy.intercept(baseUrl + "/item.json").as("itemUpdateRequest");
+    cy.wait(2000);
     toggleButton.click();
     cy.wait("@itemUpdateRequest");
 
@@ -66,13 +68,14 @@ describe("Feed", () => {
 
     cy.get(".card-panel").first().click();
 
-    cy.get(".feed-item-page-container").should("be.visible");
+    cy.get(".video-container").should("be.visible");
 
     const toggleButton = cy.get(".toggle-btn");
 
     toggleButton.should("have.text", "Mark as read");
 
     cy.intercept(baseUrl + "/item.json").as("itemUpdateRequest");
+    cy.wait(2000);
     toggleButton.click();
     cy.wait("@itemUpdateRequest");
 
