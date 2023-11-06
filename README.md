@@ -49,7 +49,7 @@ This project uses Cypress for end-to-end testing.
 | `CYPRESS_GITHUB_USERNAME` | Username Cypress will use to authenticate |
 | `CYPRESS_GITHUB_PASSWORD` | Password Cypress will use to authenticate |
 
-Set the environment variables above then open Cypress
+Set the environment variables above in your terminal session then open Cypress
 
 ```bash
 $ yarn cypress:open
