@@ -23,18 +23,11 @@ export const MobileNav = ({ user }: Props) => {
   return (
     <div className="mobile-nav">
       <nav className="indigo darken-4">
-        <a
-          href="#"
-          data-target="slide-out"
-          className="sidenav-trigger"
-          data-astro-reload
-        >
+        <a href="#" data-target="slide-out" className="sidenav-trigger">
           <i className="material-icons">menu</i>
         </a>
         <h1>
-          <a href="/" data-astro-reload>
-            FeedMe
-          </a>
+          <a href="/">FeedMe</a>
         </h1>
       </nav>
 
@@ -55,14 +48,10 @@ export const MobileNav = ({ user }: Props) => {
         {user && (
           <>
             <li>
-              <a href="/" data-astro-reload>
-                Home
-              </a>
+              <a href="/">Home</a>
             </li>
             <li>
-              <a href="/manage" data-astro-reload>
-                Manage Feeds
-              </a>
+              <a href="/manage">Manage Feeds</a>
             </li>
             <li>
               <div className="divider"></div>
@@ -80,9 +69,7 @@ export const MobileNav = ({ user }: Props) => {
 
         {!user && (
           <li>
-            <a href={loginUrl} data-astro-reload>
-              Login to Github
-            </a>
+            <a href={loginUrl}>Login to Github</a>
           </li>
         )}
       </ul>

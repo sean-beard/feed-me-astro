@@ -1,6 +1,5 @@
 ---
 import "@fontsource/pacifico";
-import { ViewTransitions } from "astro:transitions";
 import GlobalStyles from "components/GlobalStyles.astro";
 import { MobileNav } from "components/MobileNav";
 import Nav from "components/Nav.astro";
@@ -38,7 +37,6 @@ const user = getUser(Astro.cookies);
 
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <ViewTransitions />
   </head>
   <body class="dark-theme">
     <ThemeInitializer client:only="react" />
