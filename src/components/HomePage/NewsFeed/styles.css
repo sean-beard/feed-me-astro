@@ -149,8 +149,7 @@
   margin-top: 0;
 }
 
-.btn.control-button:hover,
-.btn.control-button:focus {
+.btn.control-button:hover {
   color: var(--blue);
   background-color: var(--off-white);
 }
