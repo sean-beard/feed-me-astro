@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 
 import {
   attemptToEnableNotifications,
-  registerNotificationSubscription,
   toggleNotificationPreference,
 } from "utils/serviceWorker";
-import type { Account, Subscription } from "utils/types";
+import type { Subscription } from "utils/types";
 import { SubscriptionListSkeleton } from "./Skeleton";
 import { SubscriptionRow } from "./SubscriptionRow";
 
