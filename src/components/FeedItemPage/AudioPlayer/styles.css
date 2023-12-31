@@ -15,8 +15,7 @@
 
 audio {
   margin-bottom: 3rem;
-  width: 65%;
-  scale: 1.5;
+  width: 90%;
 }
 
 audio:focus {
@@ -38,4 +37,14 @@ figcaption {
 
 .btn + .btn {
   margin-left: 0.5rem;
+}
+
+/* Mobile hack for my phone specifically */
+@media (max-width: 415px) {
+  audio {
+    scale: 1.5;
+    width: 48%;
+    margin-left: -9.5rem;
+    margin-bottom: 5rem;
+  }
 }
