@@ -39,3 +39,11 @@ figcaption {
 .btn + .btn {
   margin-left: 0.5rem;
 }
+
+/* Mobile */
+@media (max-width: 37.5em) {
+  audio {
+    scale: 1.2;
+    width: 50%;
+  }
+}
