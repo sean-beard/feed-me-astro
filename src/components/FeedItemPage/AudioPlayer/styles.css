@@ -1,3 +1,25 @@
+.audio-player-wrapper {
+  background-color: var(--blue);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 1rem 0 0 0;
+  box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.audio-player-wrapper .btn {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  min-width: 100px;
+  background-color: var(--light-blue);
+}
+
+.audio-player-wrapper .btn + .btn {
+  margin-left: 0.5rem;
+}
+
 .audio-player-wrapper .btn i {
   font-size: 2.5em;
 }
@@ -13,35 +35,18 @@
   color: var(--blue);
 }
 
-audio {
-  margin-bottom: 3rem;
-  width: 90%;
-}
-
-audio:focus {
-  border: 3px solid var(--blue);
-}
-
-figure {
-  margin: 0;
-}
-
-figcaption {
-  font-size: 1.25rem;
-}
-
-.btn {
-  margin: 2rem 0;
-  min-width: 100px;
-}
-
-.btn + .btn {
-  margin-left: 0.5rem;
+.custom-audio-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--blue);
+  padding: 0 1rem;
 }
 
 /********** Range Input Styles **********/
 /*Range Reset*/
-input[type="range"] {
+.custom-audio-controls input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
@@ -51,18 +56,18 @@ input[type="range"] {
 }
 
 /* Removes default focus */
-input[type="range"]:focus {
+.custom-audio-controls input[type="range"]:focus {
   outline: none;
 }
 
 /***** Chrome, Safari, Opera and Edge Chromium styles *****/
-input[type="range"]::-webkit-slider-runnable-track {
+.custom-audio-controls input[type="range"]::-webkit-slider-runnable-track {
   background-color: var(--light-blue);
   border-radius: 0.5rem;
   height: 0.5rem;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+.custom-audio-controls input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   margin-top: -12px; /* Centers thumb on the track */
@@ -71,7 +76,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 1rem;
 }
 
-input[type="range"]:focus::-webkit-slider-thumb {
+.custom-audio-controls input[type="range"]:focus::-webkit-slider-thumb {
   border: 1px solid var(--light-blue);
   outline: 3px solid var(--light-blue);
   outline-offset: 0.125rem;
@@ -79,14 +84,14 @@ input[type="range"]:focus::-webkit-slider-thumb {
 
 /******** Firefox styles ********/
 /* slider track */
-input[type="range"]::-moz-range-track {
+.custom-audio-controls input[type="range"]::-moz-range-track {
   background-color: var(--light-blue);
   border-radius: 0.5rem;
   height: 0.5rem;
 }
 
 /* slider thumb */
-input[type="range"]::-moz-range-thumb {
+.custom-audio-controls input[type="range"]::-moz-range-thumb {
   border: none; /* Removes extra border that FF applies */
   border-radius: 32px;
   background-color: var(--baby-blue);
@@ -94,20 +99,10 @@ input[type="range"]::-moz-range-thumb {
   width: 1rem;
 }
 
-input[type="range"]:focus::-moz-range-thumb {
+.custom-audio-controls input[type="range"]:focus::-moz-range-thumb {
   border: 1px solid var(--light-blue);
   outline: 3px solid var(--light-blue);
   outline-offset: 0.125rem;
-}
-
-.custom-audio-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 4rem;
-  background-color: var(--blue);
-  border-radius: 16px;
-  padding: 0 1rem;
 }
 
 .audio-time {
@@ -117,11 +112,15 @@ input[type="range"]:focus::-moz-range-thumb {
   font-size: 20px;
 }
 
+.audio-time span {
+  color: var(--off-white);
+}
+
 /* Mobile */
 @media (max-width: 37.5em) {
   .custom-audio-controls {
     gap: 0.75rem;
-    padding: 0.5rem;
+    padding: 0 0.5rem;
   }
 
   .audio-time {
@@ -129,7 +128,7 @@ input[type="range"]:focus::-moz-range-thumb {
     font-size: 14px;
   }
 
-  input[type="range"] {
+  .custom-audio-controls input[type="range"] {
     display: none;
   }
 }

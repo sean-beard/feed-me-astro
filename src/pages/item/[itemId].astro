@@ -41,6 +41,14 @@ const shouldRenderAudioPlayer =
   feedItem?.mediaType === "audio/mpeg" && !!feedItem?.mediaUrl;
 const shouldRenderArticle =
   !shouldRenderAudioPlayer && !youtubeVideoId && feedItem?.description;
+
+let pageContainerClass = "";
+
+if (shouldRenderAudioPlayer) {
+  pageContainerClass = "audio-player-page-container";
+} else if (shouldRenderArticle) {
+  pageContainerClass = "feed-item-page-container";
+}
 ---
 
 <Layout title="FeedMe">
@@ -48,7 +56,7 @@ const shouldRenderArticle =
 
   {
     feedItem && !feedItemError && (
-      <div class={youtubeVideoId ? "" : "feed-item-page-container"}>
+      <div class={pageContainerClass}>
         <ToggleItemStatusButton client:load feedItem={feedItem} />
 
         <h2 class="title">{feedItem.title}</h2>
@@ -56,8 +64,7 @@ const shouldRenderArticle =
         <div class={youtubeVideoId ? "" : "item-container"}>
           <div class="item">
             {shouldRenderAudioPlayer && (
-              // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
-              <AudioPlayer client:load feedItem={feedItem} />
+              <p class="audio-description" set:html={feedItem.description} />
             )}
 
             {youtubeVideoId && (
@@ -72,6 +79,11 @@ const shouldRenderArticle =
           <a href={feedItem.url} target="_blank" rel="noopener">
             {feedItem.url}
           </a>
+
+          {shouldRenderAudioPlayer && (
+            // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
+            <AudioPlayer client:load feedItem={feedItem} />
+          )}
         </div>
       </div>
     )
@@ -83,10 +95,19 @@ const shouldRenderArticle =
     text-align: center;
   }
 
-  .feed-item-page-container {
+  .audio-description {
+    font-size: 24px;
+  }
+
+  .feed-item-page-container,
+  .audio-player-page-container {
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
+  }
+
+  .audio-player-page-container {
+    margin-bottom: 8rem;
   }
 
   .title {
@@ -109,7 +130,8 @@ const shouldRenderArticle =
       padding: 0;
     }
 
-    .feed-item-page-container {
+    .feed-item-page-container,
+    .audio-player-page-container {
       width: 95%;
     }
   }
