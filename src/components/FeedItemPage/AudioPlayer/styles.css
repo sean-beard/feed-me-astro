@@ -31,7 +31,7 @@ figcaption {
 }
 
 .btn {
-  margin: 2rem 0 4rem 0;
+  margin: 2rem 0;
   min-width: 100px;
 }
 
@@ -39,12 +39,97 @@ figcaption {
   margin-left: 0.5rem;
 }
 
-/* Mobile hack for my phone specifically */
-@media (max-width: 415px) {
-  audio {
-    scale: 1.5;
-    width: 48%;
-    margin-left: -9.5rem;
-    margin-bottom: 5rem;
+/********** Range Input Styles **********/
+/*Range Reset*/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 75px;
+  border: none;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/***** Chrome, Safari, Opera and Edge Chromium styles *****/
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--light-blue);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -12px; /* Centers thumb on the track */
+  background-color: var(--baby-blue);
+  height: 2rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  border: 1px solid var(--light-blue);
+  outline: 3px solid var(--light-blue);
+  outline-offset: 0.125rem;
+}
+
+/******** Firefox styles ********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: var(--light-blue);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  border: none; /* Removes extra border that FF applies */
+  border-radius: 32px;
+  background-color: var(--baby-blue);
+  height: 2rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  border: 1px solid var(--light-blue);
+  outline: 3px solid var(--light-blue);
+  outline-offset: 0.125rem;
+}
+
+.custom-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 4rem;
+  background-color: var(--blue);
+  border-radius: 16px;
+  padding: 0 1rem;
+}
+
+.audio-time {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 20px;
+}
+
+/* Mobile */
+@media (max-width: 37.5em) {
+  .custom-audio-controls {
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .audio-time {
+    gap: 0.25rem;
+    font-size: 14px;
+  }
+
+  input[type="range"] {
+    display: none;
   }
 }
