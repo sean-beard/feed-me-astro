@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FeedItem } from "utils/types";
 
 import "./styles.css";
@@ -10,6 +10,35 @@ interface Props {
 export const AudioPlayer = ({ feedItem }: Props) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [playPauseLabel, setPlayPauseLabel] = useState("▶️");
+  const [progressBarValue, setProgressBarValue] = useState(0);
+  const [currentTime, setCurrentTime] = useState("0:00");
+  const [duration, setDuration] = useState("0:00");
+
+  useEffect(() => {
+    const audioElement = audioRef.current;
+    if (audioElement) {
+      audioElement.addEventListener("timeupdate", () => {
+        setProgressBarValue(
+          (audioElement.currentTime / audioElement.duration) * 100,
+        );
+
+        setCurrentTime(
+          `${Math.floor(audioElement.currentTime / 60)}:${(
+            "0" + Math.floor(audioElement.currentTime % 60)
+          ).slice(-2)}`,
+        );
+      });
+
+      audioElement.addEventListener("loadedmetadata", () => {
+        setDuration(
+          `${Math.floor(audioElement.duration / 60)}:${(
+            "0" + Math.floor(audioElement.duration % 60)
+          ).slice(-2)}`,
+        );
+      });
+    }
+  }, [audioRef.current]);
 
   const handleRewind = () => {
     const audioElement = audioRef.current;
@@ -75,7 +104,7 @@ export const AudioPlayer = ({ feedItem }: Props) => {
     }
   };
 
-  const setCurrentTime = () => {
+  const getCurrentTime = () => {
     const audioElement = audioRef.current;
 
     if (!audioElement || !feedItem.currentTime) return;
@@ -83,6 +112,28 @@ export const AudioPlayer = ({ feedItem }: Props) => {
     audioElement.currentTime = Number(
       Math.floor(feedItem.currentTime).toFixed(1),
     );
+  };
+
+  const handlePlayPause = () => {
+    const audioElement = audioRef.current;
+
+    if (!audioElement) return;
+
+    if (audioElement.paused) {
+      audioElement.play();
+      setPlayPauseLabel("⏸️");
+    } else {
+      audioElement.pause();
+      setPlayPauseLabel("▶️");
+    }
+  };
+
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const audioElement = audioRef.current;
+
+    if (!audioElement) return;
+
+    audioElement.volume = Number(event.target.value) / 100;
   };
 
   return (
@@ -104,15 +155,68 @@ export const AudioPlayer = ({ feedItem }: Props) => {
       <figure>
         <audio
           ref={audioRef}
-          controls
           src={feedItem.mediaUrl}
           preload="auto"
-          onLoadedData={setCurrentTime}
+          onLoadedData={getCurrentTime}
           onPause={postCurrentTime}
         >
           Oops! Your browser does not support the
           <code>audio</code> element.
         </audio>
+        <div className="custom-audio-controls">
+          <button
+            style={{
+              backgroundColor: "transparent",
+              color: "var(--off-white)",
+              border: "none",
+              fontSize: "2.5rem",
+              cursor: "pointer",
+              width: "50px",
+              height: "50px",
+            }}
+            onClick={handlePlayPause}
+          >
+            {playPauseLabel}
+          </button>
+
+          <progress
+            style={{ display: "none" }}
+            value={progressBarValue}
+            max="100"
+            aria-label="audio progress"
+          ></progress>
+          <div
+            style={{
+              flex: 1,
+              border: "4px solid var(--light-blue)",
+              backgroundColor: "var(--off-white)",
+              height: "36px",
+            }}
+          >
+            <div
+              style={{
+                width: `${(progressBarValue / 100) * 100}%`,
+                height: "100%",
+                backgroundColor: "var(--light-blue)",
+              }}
+            />
+          </div>
+
+          <p className="audio-time">
+            <span>{currentTime}</span>
+            <span>/</span>
+            <span>{duration}</span>
+          </p>
+
+          <input
+            type="range"
+            min="0"
+            max="100"
+            defaultValue="100"
+            aria-label="Volume"
+            onChange={handleVolumeChange}
+          ></input>
+        </div>
 
         <figcaption
           dangerouslySetInnerHTML={{ __html: feedItem.description }}
