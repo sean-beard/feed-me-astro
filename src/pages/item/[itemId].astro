@@ -41,6 +41,14 @@ const shouldRenderAudioPlayer =
   feedItem?.mediaType === "audio/mpeg" && !!feedItem?.mediaUrl;
 const shouldRenderArticle =
   !shouldRenderAudioPlayer && !youtubeVideoId && feedItem?.description;
+
+let pageContainerClass = "";
+
+if (shouldRenderAudioPlayer) {
+  pageContainerClass = "audio-player-page-container";
+} else if (shouldRenderArticle) {
+  pageContainerClass = "feed-item-page-container";
+}
 ---
 
 <Layout title="FeedMe">
@@ -48,17 +56,16 @@ const shouldRenderArticle =
 
   {
     feedItem && !feedItemError && (
-      <div class={youtubeVideoId ? "" : "feed-item-page-container"}>
+      <div class={pageContainerClass}>
         <ToggleItemStatusButton client:load feedItem={feedItem} />
 
         <h2 class="title">{feedItem.title}</h2>
 
         <div class={youtubeVideoId ? "" : "item-container"}>
-          <div class="item">
-            {shouldRenderAudioPlayer && (
-              // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
-              <AudioPlayer client:load feedItem={feedItem} />
-            )}
+          <div
+            class={`item ${shouldRenderAudioPlayer ? "audio-description" : ""}`}
+          >
+            {shouldRenderAudioPlayer && <p set:html={feedItem.description} />}
 
             {youtubeVideoId && (
               <YoutubeVideo client:only="react" videoId={youtubeVideoId} />
@@ -72,6 +79,11 @@ const shouldRenderArticle =
           <a href={feedItem.url} target="_blank" rel="noopener">
             {feedItem.url}
           </a>
+
+          {shouldRenderAudioPlayer && (
+            // @ts-ignore mediaUrl IS defined, TS just isn't narrowing the type
+            <AudioPlayer client:load feedItem={feedItem} />
+          )}
         </div>
       </div>
     )
@@ -83,10 +95,19 @@ const shouldRenderArticle =
     text-align: center;
   }
 
-  .feed-item-page-container {
+  .audio-description {
+    font-size: 24px !important;
+  }
+
+  .feed-item-page-container,
+  .audio-player-page-container {
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
+  }
+
+  .audio-player-page-container {
+    margin-bottom: 8rem;
   }
 
   .title {
@@ -109,8 +130,13 @@ const shouldRenderArticle =
       padding: 0;
     }
 
-    .feed-item-page-container {
-      width: 95%;
+    .feed-item-page-container,
+    .audio-player-page-container {
+      width: 97%;
+    }
+
+    .audio-player-page-container {
+      margin-bottom: 10rem;
     }
   }
 </style>
