@@ -157,6 +157,7 @@ export const AudioPlayer = ({ feedItem }: Props) => {
           ref={audioRef}
           src={feedItem.mediaUrl}
           preload="auto"
+          title={feedItem.feedName}
           onLoadedData={getCurrentTime}
           onPause={postCurrentTime}
         >
