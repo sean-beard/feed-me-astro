@@ -116,6 +116,21 @@
   color: var(--off-white);
 }
 
+.play-pause-btn {
+  background-color: transparent;
+  color: var(--off-white);
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+.play-pause-btn:focus {
+  background-color: transparent;
+  outline: 5px solid var(--gray);
+}
+
 /* Mobile */
 @media (max-width: 37.5em) {
   .custom-audio-controls {

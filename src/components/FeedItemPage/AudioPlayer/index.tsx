@@ -218,18 +218,7 @@ export const AudioPlayer = ({ feedItem }: Props) => {
         <code>audio</code> element.
       </audio>
       <div className="custom-audio-controls">
-        <button
-          style={{
-            backgroundColor: "transparent",
-            color: "var(--off-white)",
-            border: "none",
-            fontSize: "2.5rem",
-            cursor: "pointer",
-            width: "50px",
-            height: "50px",
-          }}
-          onClick={handlePlayPause}
-        >
+        <button className="play-pause-btn" onClick={handlePlayPause}>
           {playPauseLabel}
         </button>
 
