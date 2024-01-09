@@ -6,6 +6,7 @@ import "./styles.css";
 const PLAYER_ID = "player";
 
 interface YoutubePlayer {
+  getDuration: () => number;
   setPlaybackRate: (rate: number) => void;
 }
 
@@ -17,11 +18,29 @@ export const YoutubeVideo = ({ videoId }: Props) => {
   const [player, setPlayer] = useState<YoutubePlayer | null>(null);
   const [playbackRate, setPlaybackRate] = useState(1);
 
+  const getDisplayDuration = (duration: number) => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+
+    return `${minutes}:${seconds}`;
+  };
+
   const loadPlayer = (YT: any) => {
-    const newPlayer = new YT.Player(PLAYER_ID, {
+    const newPlayer: YoutubePlayer = new YT.Player(PLAYER_ID, {
       height: "315",
       width: "560",
       videoId,
+      events: {
+        onReady: () => {
+          const duration = newPlayer.getDuration();
+          const displayDuration = getDisplayDuration(duration);
+          const titleElement = document.getElementById("video-title");
+
+          if (titleElement) {
+            titleElement.innerText = `${titleElement.innerText} (${displayDuration})`;
+          }
+        },
+      },
     });
 
     setPlayer(newPlayer);

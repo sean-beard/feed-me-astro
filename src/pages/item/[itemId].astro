@@ -59,7 +59,9 @@ if (shouldRenderAudioPlayer) {
       <div class={pageContainerClass}>
         <ToggleItemStatusButton client:load feedItem={feedItem} />
 
-        <h2 class="title">{feedItem.title}</h2>
+        <h2 id="video-title" class="title">
+          {feedItem.title}
+        </h2>
 
         <div class={youtubeVideoId ? "" : "item-container"}>
           <div
