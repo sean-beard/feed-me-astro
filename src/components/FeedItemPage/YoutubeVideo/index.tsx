@@ -19,10 +19,17 @@ export const YoutubeVideo = ({ videoId }: Props) => {
   const [playbackRate, setPlaybackRate] = useState(1);
 
   const getDisplayDuration = (duration: number) => {
-    const minutes = Math.floor(duration / 60);
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration % 3600) / 60);
     const seconds = Math.floor(duration % 60);
 
-    return `${minutes}:${seconds}`;
+    return [
+      hours > 0 && `${hours.toString().padStart(2, "0")}:`,
+      `${minutes.toString().padStart(2, "0")}:`,
+      seconds.toString().padStart(2, "0"),
+    ]
+      .filter(Boolean)
+      .join("");
   };
 
   const loadPlayer = (YT: any) => {
