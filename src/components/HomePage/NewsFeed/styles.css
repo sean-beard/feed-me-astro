@@ -106,6 +106,7 @@
 
 .card-panel {
   display: block;
+  background-color: transparent;
   cursor: pointer;
   padding: 1rem;
   text-align: center;
@@ -190,11 +191,6 @@
   .control-button + .control-button {
     margin-left: 0;
     margin-top: 1rem;
-  }
-
-  .card-link:hover .card-panel,
-  .card-link:focus-visible .card-panel {
-    background-color: white;
   }
 
   .dark-theme .card-link:hover .card-panel,
