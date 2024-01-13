@@ -25,13 +25,7 @@
 }
 
 .audio-player-wrapper .btn:hover,
-.audio-player-wrapper .btn:hover i,
-.audio-player-wrapper .btn:focus i {
-  color: var(--blue);
-}
-
-.audio-player-wrapper .btn:focus {
-  background-color: var(--off-white);
+.audio-player-wrapper .btn:hover i {
   color: var(--blue);
 }
 
