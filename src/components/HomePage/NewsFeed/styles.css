@@ -186,6 +186,10 @@
   overflow: hidden;
 }
 
+.input-field input[type="search"]:focus:not(.browser-default) {
+  background-color: transparent;
+}
+
 /* Mobile */
 @media (max-width: 37.5em) {
   .control-button + .control-button {
