@@ -36,6 +36,10 @@
   padding: 0.5rem;
 }
 
+.dark-theme .manage-feeds-section .error-card p {
+  color: var(--dark-blue);
+}
+
 .unstyled-button {
   border: none;
   padding: 0;
