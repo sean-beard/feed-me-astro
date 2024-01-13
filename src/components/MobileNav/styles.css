@@ -62,8 +62,7 @@
   background-color: var(--light-blue);
 }
 
-.sidenav-btn:hover,
-.sidenav-btn:focus {
+.sidenav-btn:hover {
   background-color: var(--off-white);
   color: var(--light-blue);
 }
