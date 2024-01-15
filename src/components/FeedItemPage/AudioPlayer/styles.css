@@ -122,8 +122,15 @@
 }
 
 .play-pause-btn:focus {
-  background-color: transparent;
-  outline: 5px solid var(--gray);
+  background-color: var(--light-blue);
+  outline: 5px solid var(--light-blue);
+  border-radius: 4px;
+}
+
+.audio-player-wrapper .btn:focus,
+.audio-player-wrapper .btn:focus i {
+  background-color: var(--light-blue);
+  color: var(--off-white);
 }
 
 /* Mobile */
@@ -131,7 +138,6 @@
   .audio-player-wrapper .btn:hover {
     background-color: var(--light-blue);
     color: var(--off-white);
-    outline: 5px solid var(--gray);
   }
 
   .audio-player-wrapper .btn:hover i {
